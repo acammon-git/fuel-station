@@ -6,10 +6,11 @@ import { User } from './entities/user.entity'; // Importa la entidad User de Typ
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, UsersService],
   imports: [
     // configuramos nuestras variables de entorno
     ConfigModule.forRoot(),

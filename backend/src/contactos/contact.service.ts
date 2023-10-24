@@ -1,22 +1,14 @@
 
-<<<<<<< HEAD
 import { BadRequestException, Body, Injectable, NotFoundException, Post } from '@nestjs/common';
 import { CreateContactDto } from './dto/create-contact.dto';
 import { UpdateContactDto } from './dto/update-contact.dto';
 import { Contact } from './entities/contact.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-=======
-import { Body, Injectable, Post } from '@nestjs/common';
-import { CreateContactDto } from './dto/create-contact.dto';
-import { UpdateContactoDto } from './dto/update-contact.dto';
-import { Contact } from './entities/contact.entity';
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
 
 
 @Injectable()
 export class ContactService {
-<<<<<<< HEAD
 
   constructor(
     @InjectRepository(Contact)
@@ -107,24 +99,5 @@ export class ContactService {
     } else {
       return { message: 'La entidad no se encontró o no se pudo eliminar' };
     }
-=======
-  create(createContactDto: CreateContactDto): Promise<Contact> {
-    return 
-  }
-  findAll() {
-    return `This action returns all contactos`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} contacto`;
-  }
-
-  update(id: number, updateContactoDto: UpdateContactoDto) {
-    return `This action updates a #${id} contacto`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} contacto`;
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
   }
 }

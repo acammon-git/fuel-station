@@ -6,24 +6,18 @@ import * as bcryptjs from 'bcryptjs';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
-<<<<<<< HEAD
 import { JwtPayload } from './interfaces/jwt-payload';
 
-=======
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
 
 
 @Injectable()
 export class UsersService {
-<<<<<<< HEAD
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private jwtService: JwtService,
 
   ) { }
-=======
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
   async getAllElements() {
     try {
       // Utiliza el repositorio de TypeORM para realizar una consulta y obtener todos los elementos
@@ -34,16 +28,7 @@ export class UsersService {
       throw new Error('Error al obtener los elementos');
     }
   }
-<<<<<<< HEAD
   
-=======
-  constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-    private jwtService: JwtService,
-    
-  ) {}
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
@@ -69,7 +54,6 @@ export class UsersService {
   }
   
 
-<<<<<<< HEAD
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
@@ -85,16 +69,6 @@ export class UsersService {
   }
 
 
-=======
-  findAll() {
-    return `This action returns all users`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
   async update(id:number, updateUserDto: UpdateUserDto): Promise<User | null> {
     // Realiza la lógica para actualizar los datos del usuario
     const user = await this.userRepository.findOne({where: {id_usuario: id}});
@@ -135,10 +109,7 @@ export class UsersService {
   remove(id: number) {
     return `This action removes a #${id} user`;
   }
-<<<<<<< HEAD
   getJwtToken(payload: JwtPayload) {
     return this.jwtService.sign(payload);
   }
-=======
->>>>>>> b23cfb1fcc8557933025dd64f8f12c0023da4684
 }

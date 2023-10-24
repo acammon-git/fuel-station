@@ -7,6 +7,7 @@ import { LoginResponse } from './interfaces/login-response';
 import { User } from './entities/user.entity';
 
 
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -35,13 +36,27 @@ export class AuthController {
   // LoginResponse
  
   @Get('check-token')
-  checkToken( @Request() req: Request ): LoginResponse {
+  @UseGuards(AuthGuard)
+  checkToken( @Request() req): any {
       
-    const user = req['user'] as User;
+    try {
+      const authorizationHeader = req.headers['authorization']; 
 
-    return {
-      user,
-      token: this.authService.getJwtToken({ id: user.id_usuario })
+      if (authorizationHeader) {
+        return authorizationHeader;
+        // const token = authorizationHeader.split(' ')[1];
+
+        //  return {
+        //   user,
+        //   token: this.authService.getJwtToken({ id: user.id_usuario })
+        // }
+      } else {
+        return 'No se encontró el encabezado de autorización';
+      }
+  
+     
+    } catch (error) {
+      console.log(error);
     }
 
   }

@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
     try {
       const request = context.switchToHttp().getRequest();
       const token = this.extractTokenFromHeader(request);
-      console.log('Token ausente');
+      
       if (!token) {
         console.log('Token ausente'); // Agrega un registro para identificar cuando no hay token
         throw new UnauthorizedException('There is no bearer token');
