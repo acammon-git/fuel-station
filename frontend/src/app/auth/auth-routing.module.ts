@@ -12,10 +12,19 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 // empiezan por la ruta definida en el fichero de rutas principal
 // auth/xxxx
 const routes: Routes = [
+  // pagina editar va a usar el layout full y requiere login
+  {
+    path:'edit',
+    component: LayoutPage,
+    children: [
+      { path: '', component: EditPageComponent }
+    ],
+    canActivate: [AuthGuard] // ! < es requerido estar autenticado
+  },
+  // resto de patchs de auth
   {
     path: '',
     component: NoSesionLayoutPage,
-    data: {bodyClass:'simple-page'}, // en modulo auth van a tener su propio layout
     children: [
       // iniciar sesión
       {
@@ -34,24 +43,14 @@ const routes: Routes = [
       {
         path:'**',
         redirectTo: 'login',
-        data: {bodyClass:'simple-page'}
-
       },
     ]
   },
-  // pagina editar va a usar el layout full y requiere login
-  {
-    path:'edit',
-    component: LayoutPage,
-    children: [
-      { path: '', component: EditPageComponent }
-    ],
-    canActivate: [AuthGuard] // ! < es requerido estar autenticado
-  },
+  
   // pagina por defecto, login
   {
-    path:'**',
-    redirectTo: 'login'
+   path:'**',
+   redirectTo: 'login'
   },
 ];
 

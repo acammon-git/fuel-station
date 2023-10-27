@@ -32,12 +32,6 @@ const routes: Routes = [
         loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosModule),
         canActivate: [AuthGuard], // ! < es requerido estar autenticado
       },
-      {
-        path: 'userSettings',
-        component: LayoutPage,
-        loadChildren: () => import('./user-settings/user-settings.module').then( m => m.UserSettingsModule),
-        canActivate: [AuthGuard], // ! < es requerido estar autenticado
-      },
       
       // página que no existe, a la pagina principal
       {

@@ -18,7 +18,6 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
     { route: '/lineas/list', name: 'Líneas', icon: 'zmdi-reader' },
     { route: '/fuentes/list', name: 'Fuentes', icon: 'zmdi-device-hub' },
     { route: '/contactos/list', name: 'Contactos', icon: 'zmdi-accounts-alt' },
-    { route: '/userSettings', name: 'Datos Cuenta', icon: 'zmdi-settings' },
   ];
   public userData?: User;
 
