@@ -6,6 +6,7 @@ import { PasswordPage} from './pages/password-page/password-page.component';
 import { PhotoPage } from './pages/photo-page/photo-page.component';
 import { NamePage } from './pages/name-page/name-page.component';
 import { RouterModule } from '@angular/router';
+import { UserSettingsBarComponent } from './components/user-settings-bar/user-settings-bar.component';
 
 
 @NgModule({
@@ -13,12 +14,15 @@ import { RouterModule } from '@angular/router';
     PasswordPage,
     PhotoPage,
     NamePage,
-    
+    UserSettingsBarComponent,
   ],
   imports: [
     CommonModule,
     UserSettingsRoutingModule,
-    RouterModule
+    RouterModule,
+  ],
+  exports: [
+    UserSettingsBarComponent
   ]
 })
 export class UserSettingsModule { }

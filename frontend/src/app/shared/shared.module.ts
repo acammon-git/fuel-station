@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AsideComponent } from './components/aside/aside.component';
-import { UserSettingsBarComponent } from './components/user-settings-bar/user-settings-bar.component';
+
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { UserSettingsBarComponent } from './components/user-settings-bar/user-se
     FooterComponent,
     NavbarComponent,
     AsideComponent,
-    UserSettingsBarComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -22,6 +22,7 @@ import { UserSettingsBarComponent } from './components/user-settings-bar/user-se
     FooterComponent,
     NavbarComponent,
     AsideComponent,
+    
   ]
 })
 export class SharedModule { }
