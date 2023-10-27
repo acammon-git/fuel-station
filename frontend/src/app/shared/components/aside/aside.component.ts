@@ -25,23 +25,18 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
   constructor(private service: AuthService) {}
   
 
-  ngOnInit(): void {
-    const id =this.service.idUsuario;
+  ngOnInit(): void {  
     
-    
-    if (id) {
-      this.service.getUserInfo(id).subscribe((user: User | null) => {
-        if (user) {
-          this.nombre = user.nombre;
-          const imageName = user.foto;
-          this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
-        } else {
-          console.log('Los datos del usuario son nulos');
-        }
-      });
-    } else {
-      console.log('ID de usuario no válido');
-    }
+    this.service.getUserInfo().subscribe((user: User | null) => {
+      if (user) {
+   this.nombre = user?.nombre;
+        const imageName = user.foto;
+        this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
+      } else {
+        console.log('Los datos del usuario son nulos');
+      }
+    });
+
   }
   toggleSettingsMenu() {
     this.isSettingsMenuOpen = !this.isSettingsMenuOpen;

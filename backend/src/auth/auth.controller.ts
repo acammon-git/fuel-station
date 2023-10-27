@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Put, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 import { CreateUserDto, LoginDto, RegisterUserDto, UpdateAuthDto } from './dto';
 import { AuthGuard } from './guards/auth.guard';
-
+import * as jwt from 'jsonwebtoken';
+import { JwtPayload } from './interfaces/jwt-payload';
 
 
 
@@ -12,8 +13,10 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Get()
-  getHello(): string {
-    return 'Hello, World!';
+  public getHello(@Headers('x-token') token: string): Promise<string> {
+    const decode = jwt.decode(token) as JwtPayload;
+    const { id } = decode;
+    return this.authService.findOne(id);
   }
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

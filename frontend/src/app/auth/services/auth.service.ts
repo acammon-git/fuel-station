@@ -24,16 +24,9 @@ export class AuthService {
     return this.http.post<{ token: string , user: any }>(`${this.baseUrl}/auth/login`, loginData).pipe(
       map(response => {
         if (response && response.token) {
+          console.log(response)
           this.token = response.token;
-          this.user = JSON.stringify(response.user);
-          delete this.user.password;
-          delete this.user.last_login;
-          delete this.user.active;
-          this.idUsuario = this.user.id_usuario;
-        
-          console.log(this.user.id_usuario)
           localStorage.setItem('token', this.token);//Guardamos el token del usuario en el LocalStorage
-          localStorage.setItem('user', this.user);//Guardamos usuario en el LocalStorage
           return true;
         }
         return false;
@@ -45,28 +38,24 @@ export class AuthService {
       })
     );
   }
-  getUserInfo(idUsuario: number | null): Observable<User | null> {
-    if (idUsuario) {
-      return this.http.get<User>(`${this.baseUrl}/auth/${idUsuario}`).pipe(
-        map(response => {
-          if (response) {
-            return response;
-          }
-          return null;
-        }),
-        catchError(error => {
-          console.error('Error al obtener la información del usuario:', error);
-          return of(null);
-        })
-      );
-    } else {
-      // Manejar el caso en el que idUsuario es null o undefined
-      return of(null);
-    }
+  getUserInfo(): Observable<User | null> {
+    return this.http.get<User>(`${this.baseUrl}/auth`).pipe(
+      map(response => {
+        if (response) {
+          return response;
+        }
+        return null;
+      }),
+      catchError(error => {
+        console.error('Error al obtener la información del usuario:', error);
+        return of(null);
+      })
+    );
   }
 
   // Devuelve el token de acceso actual
   getToken(): string | null {
     return this.token;
   }
+
 }
