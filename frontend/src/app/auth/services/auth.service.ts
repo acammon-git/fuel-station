@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private token: string | null = null;
   public user: any= null;
-
+  public idUsuario?:any;
   constructor(private http: HttpClient) {
     
   }
@@ -27,10 +28,12 @@ export class AuthService {
           this.user = JSON.stringify(response.user);
           delete this.user.password;
           delete this.user.last_login;
-          delete this.user.id_usuario;
           delete this.user.active;
+          this.idUsuario = this.user.id_usuario;
+        
+          console.log(this.user.id_usuario)
           localStorage.setItem('token', this.token);//Guardamos el token del usuario en el LocalStorage
-          localStorage.setItem('user', this.user);//Guardamos el token del usuario en el LocalStorage
+          localStorage.setItem('user', this.user);//Guardamos usuario en el LocalStorage
           return true;
         }
         return false;
@@ -41,6 +44,25 @@ export class AuthService {
         return of(false); // Devolver un valor observable con false
       })
     );
+  }
+  getUserInfo(idUsuario: number | null): Observable<User | null> {
+    if (idUsuario) {
+      return this.http.get<User>(`${this.baseUrl}/auth/${idUsuario}`).pipe(
+        map(response => {
+          if (response) {
+            return response;
+          }
+          return null;
+        }),
+        catchError(error => {
+          console.error('Error al obtener la información del usuario:', error);
+          return of(null);
+        })
+      );
+    } else {
+      // Manejar el caso en el que idUsuario es null o undefined
+      return of(null);
+    }
   }
 
   // Devuelve el token de acceso actual

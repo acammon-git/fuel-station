@@ -23,26 +23,24 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
   public userData?: User;
 
   constructor(private service: AuthService) {}
+  
 
   ngOnInit(): void {
-    // Carga los datos desde el Local Storage al iniciar el componente
-    const storedData = localStorage.getItem('user'); // Obtén los datos del Local Storage
-  
-    if (storedData) {
-      // Si se encontraron datos en el Local Storage, conviértelos de JSON a un objeto
-      this.userData = JSON.parse(storedData);
-  
-      if (this.userData) {
-        // Verifica que `this.userData` no sea nulo
-        this.nombre = this.userData.nombre;
-        const imageName = this.userData.foto;
-        this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
-        console.log(this.userData);
-      } else {
-        console.log('Los datos del usuario son nulos');
-      }
+    const id =this.service.idUsuario;
+    
+    
+    if (id) {
+      this.service.getUserInfo(id).subscribe((user: User | null) => {
+        if (user) {
+          this.nombre = user.nombre;
+          const imageName = user.foto;
+          this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
+        } else {
+          console.log('Los datos del usuario son nulos');
+        }
+      });
     } else {
-      console.log('No se encontraron datos en el Local Storage');
+      console.log('ID de usuario no válido');
     }
   }
   toggleSettingsMenu() {
