@@ -5,24 +5,37 @@ import { NoSesionLayoutPage } from './pages/layout/layout-page.component';
 import { LayoutPage } from '../shared/pages/layout/layout-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { EditPageComponent } from './pages/edit/edit-page.component';
+import { PasswordResetPage } from './pages/password-reset/password-reset.component';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
 
 // todas estas rutas se cargan por lazyload
 // empiezan por la ruta definida en el fichero de rutas principal
 // auth/xxxx
 const routes: Routes = [
   {
-    path: 'login',
-    component: NoSesionLayoutPage, // en modulo auth van a tener su propio layout
+    path: '',
+    component: NoSesionLayoutPage,
+    data: {bodyClass:'simple-page'}, // en modulo auth van a tener su propio layout
     children: [
       // iniciar sesión
       {
-        path:'',
+        path:'login',
         component: LoginPage,
+      },
+      {
+        path:'reset-password',
+        component: PasswordResetPage,
+      },
+      {
+        path:'sign-up',
+        component: SignUpComponent,
       },
       // pagina por defecto, login
       {
         path:'**',
-        redirectTo: ''
+        redirectTo: 'login',
+        data: {bodyClass:'simple-page'}
+
       },
     ]
   },

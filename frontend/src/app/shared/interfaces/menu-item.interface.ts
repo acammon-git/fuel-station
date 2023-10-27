@@ -1,5 +1,6 @@
+// interfaz para las rutas de nuestro menu
 export interface MenuItem {
-    label:string;
-    router:string;
-    icon_class:string;
+    name: string;
+    route: string;
+    icon: string;
 }

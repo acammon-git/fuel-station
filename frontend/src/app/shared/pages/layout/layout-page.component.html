@@ -1,6 +1,14 @@
-Menu
 
-<router-outlet></router-outlet>
+<div class="menubar-left menubar-unfold menubar-light theme-primary" [ngClass]="{'menubar-in': menuToggle}" id="list-body">
 
-
-Pie
+    <shared-navbar></shared-navbar>
+    <shared-aside></shared-aside>
+    <main id="app-main" class="app-main in">
+        <div class="wrap" style="padding-top: 6.5rem;">
+            <section class="app-content">
+                <router-outlet></router-outlet>
+            </section>
+        </div>
+        <shared-footer></shared-footer>
+    </main>
+</div>

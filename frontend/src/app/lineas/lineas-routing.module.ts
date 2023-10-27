@@ -9,7 +9,7 @@ const routes: Routes = [
   // listado de formaciones del usuario
   {
     path: 'list',
-    component: ListPageComponent, // todas estas rutas van a tener el layout principal
+    component: ListPageComponent, 
   },
    // página que no existe, a la pagina principal
    {

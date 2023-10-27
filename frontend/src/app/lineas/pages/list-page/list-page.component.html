@@ -1,1 +1,49 @@
-<p>Linea: list-page works!</p>
+
+<div class="row">
+    <!-- DOM dataTable -->
+    <div class="col-md-12">
+        <div class="widget">
+            <header class="widget-header">
+                <h4 class="widget-title">Default DataTable</h4>
+            </header><!-- .widget-header -->
+            <hr class="widget-separator">
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr *ngFor="let item of data">
+                                <td>{{item.Nombre}}</td>
+                                <td>{{item.Posicion}}</td>
+                                <td>{{item.Oficina}}</td>
+                                <td>{{item.Edad}}</td>
+                                <td>{{item.FechaInicio}}</td>
+                                <td>{{item.Salario}}</td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- .widget-body -->
+        </div><!-- .widget -->
+    </div><!-- END column -->
+</div>
