@@ -15,4 +15,20 @@ export class EditPageComponent implements OnInit{
     this.navbarService.title.set("Editar mi cuenta"); // el título será "Editar mi cuenta"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
+  userData = {
+    name: '',
+    country: '',
+    photo:'',
+    field1: '',
+    field2: '',
+    field3: ''
+  };
+  
+  showAdditionalFields = false;
+
+  submitForm() {
+    // Aquí puedes enviar los datos actualizados del usuario al servidor
+    // userData contendrá los datos del usuario y showAdditionalFields indicará si los campos adicionales están habilitados
+    console.log(this.userData);
+  }
 }

@@ -8,7 +8,7 @@ import { EditPageComponent } from './pages/edit/edit-page.component';
 import { FooterLoginComponent } from './components/footer-login/footer-login.component';
 import { LogoComponent } from './components/logo/logo.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EmerWindowComponent } from './components/emer-window/emer-window.component';
 
 
@@ -28,7 +28,8 @@ import { EmerWindowComponent } from './components/emer-window/emer-window.compon
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
     
   ]
 })
