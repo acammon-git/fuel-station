@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
+import { User } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private token: string | null = null;
   public user: any= null;
-
+  public idUsuario?:any;
   constructor(private http: HttpClient) {
     
   }
@@ -23,14 +24,9 @@ export class AuthService {
     return this.http.post<{ token: string , user: any }>(`${this.baseUrl}/auth/login`, loginData).pipe(
       map(response => {
         if (response && response.token) {
+          console.log(response)
           this.token = response.token;
-          this.user = JSON.stringify(response.user);
-          delete this.user.password;
-          delete this.user.last_login;
-          delete this.user.id_usuario;
-          delete this.user.active;
           localStorage.setItem('token', this.token);//Guardamos el token del usuario en el LocalStorage
-          localStorage.setItem('user', this.user);//Guardamos el token del usuario en el LocalStorage
           return true;
         }
         return false;
@@ -42,9 +38,24 @@ export class AuthService {
       })
     );
   }
+  getUserInfo(): Observable<User | null> {
+    return this.http.get<User>(`${this.baseUrl}/auth`).pipe(
+      map(response => {
+        if (response) {
+          return response;
+        }
+        return null;
+      }),
+      catchError(error => {
+        console.error('Error al obtener la información del usuario:', error);
+        return of(null);
+      })
+    );
+  }
 
   // Devuelve el token de acceso actual
   getToken(): string | null {
     return this.token;
   }
+
 }
