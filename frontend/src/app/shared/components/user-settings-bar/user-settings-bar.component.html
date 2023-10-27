@@ -1,0 +1,7 @@
+
+<ul class="app-menu">
+    <li *ngFor="let value of menuItems" [routerLink]="value.route" routerLinkActive="active">
+      <i class="menu-icon zmdi {{value.icon}} zmdi-hc-lg"></i>
+      <span class="menu-text">{{value.name}}</span>
+    </li>
+  </ul><!-- .app-menu -->

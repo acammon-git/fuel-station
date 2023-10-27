@@ -5,17 +5,20 @@ import { UserSettingsRoutingModule } from './user-settings-routing.module';
 import { PasswordPage} from './pages/password-page/password-page.component';
 import { PhotoPage } from './pages/photo-page/photo-page.component';
 import { NamePage } from './pages/name-page/name-page.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
   declarations: [
     PasswordPage,
     PhotoPage,
-    NamePage
+    NamePage,
+    
   ],
   imports: [
     CommonModule,
-    UserSettingsRoutingModule
+    UserSettingsRoutingModule,
+    RouterModule
   ]
 })
 export class UserSettingsModule { }

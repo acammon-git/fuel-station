@@ -14,8 +14,6 @@ export class AuthService {
   constructor(private http: HttpClient) {
     
   }
-
-  
   // Realiza la solicitud de inicio de sesión al backend
   login(email: string, password: string): Observable<boolean> {
     // Define los datos de inicio de sesión

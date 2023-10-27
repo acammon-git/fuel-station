@@ -10,6 +10,7 @@ import { SharedModule } from '../../shared.module';
   styleUrls: ['./layout-page.component.css']
 })
 export class LayoutPage {
+  isSettingsMenuOpen: boolean = false;
   public menuToggle:boolean = false;
   constructor(private el: ElementRef) {}
 
@@ -24,6 +25,6 @@ export class LayoutPage {
     }
   }
   switchMenu():void{
-    this.menuToggle = !this.menuToggle;
+    this.isSettingsMenuOpen = !this.isSettingsMenuOpen;
   }
 }

@@ -6,11 +6,11 @@ import path, { dirname } from 'path';
 @Controller('serve-images')
 export class ServeImagesController {
   constructor(private readonly serveImagesService: ServeImagesService) {}
+  //metodo get para proporcionar imagenes
   @Get(':filename')
   serveImage(@Param('filename') filename: string, @Res() res: Response) {
-    console.log(__dirname)
-    const assetsPath = path.join(__dirname, '..', '..', 'assets', 'images', filename);
-    console.log(__dirname)
+    //construimos la ruta donde tenemos las imagenes
+    const assetsPath = path.join(__dirname, '..', '..', 'uploads', filename);
     res.sendFile(assetsPath);
   }
 }
