@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from '../../interfaces/menu-item.interface';
 import { User } from '../../interfaces/user.interface';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'shared-aside',
@@ -20,6 +22,8 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
   ];
   public userData?: User;
 
+  constructor(private service: AuthService) {}
+
   ngOnInit(): void {
     // Carga los datos desde el Local Storage al iniciar el componente
     const storedData = localStorage.getItem('user'); // Obtén los datos del Local Storage
@@ -31,8 +35,8 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
       if (this.userData) {
         // Verifica que `this.userData` no sea nulo
         this.nombre = this.userData.nombre;
-        const imageName = 'alberto.jpg';
-        this.foto = `http://localhost:3000/serve-images/${imageName}`;
+        const imageName = this.userData.foto;
+        this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
         console.log(this.userData);
       } else {
         console.log('Los datos del usuario son nulos');

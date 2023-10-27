@@ -3,12 +3,12 @@
       <div class="media">
         <div class="media-left">
           <div class="avatar avatar-md avatar-circle">
-            <a href="javascript:void(0)"><img class="img-responsive" [src]="foto" alt="avatar"/></a>
+            <a href="javascript:void(0)"><img class="img-responsive" *ngIf="userData" [src]="foto" alt="avatar"/></a>
           </div><!-- .avatar -->
         </div>
         <div class="media-body">
           <div class="foldable">
-            <h5><a href="javascript:void(0)" class="username">{{nombre}}</a></h5>
+        <h5><a href="javascript:void(0)" class="username" *ngIf="userData">{{userData.nombre}}</a></h5>
             <ul>
               <li class="dropdown">
                 <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

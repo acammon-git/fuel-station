@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment.development';
 export class AuthService {
   private readonly baseUrl: string = environment.baseUrl;
   private token: string | null = null;
-  private user: any= null;
+  public user: any= null;
 
   constructor(private http: HttpClient) {
     
