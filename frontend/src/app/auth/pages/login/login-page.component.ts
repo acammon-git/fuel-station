@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { catchError, map } from 'rxjs/operators'; // Importa 'catchError' y 'map' de 'rxjs/operators'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EmerWindowComponent } from '../../components/emer-window/emer-window.component';
+
 
 @Component({
   templateUrl: './login-page.component.html',

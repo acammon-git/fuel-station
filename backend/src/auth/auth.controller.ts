@@ -81,6 +81,7 @@ export class AuthController {
     }
   
     const { id } = decode;
+    console.log(id)
     return this.authService.update(id, updateAuthDto);
   }
 

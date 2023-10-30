@@ -26,7 +26,8 @@ export class AuthService {
         if (response && response.token) {
           console.log(response)
           this.token = response.token;
-          localStorage.setItem('token', this.token);//Guardamos el token del usuario en el LocalStorage
+          localStorage.setItem('token', this.token);//Guardamos el token y email del usuario en el LocalStorage
+          localStorage.setItem('email', email);
           return true;
         }
         return false;
@@ -56,6 +57,42 @@ export class AuthService {
   // Devuelve el token de acceso actual
   getToken(): string | null {
     return this.token;
+  }
+
+  updateUser(formData:User): Observable<boolean> {
+    return this.http.put<any>(`${this.baseUrl}/auth`, formData).pipe(
+      map(response => {
+        console.log(response)
+        // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
+        return true;
+      }),
+      catchError(({ error }) => {
+        console.log(error)
+        return of(false);
+      })
+    );
+  }
+
+  checkActualPass(actualPass:string): Observable<boolean>{
+    const email =localStorage.getItem('email');
+    const loginData = { email, actualPass };
+    return this.http.post<{ token: string , user: any }>(`${this.baseUrl}/auth/login`, loginData).pipe(
+      map(response => {
+        if (response && response.token) {
+          console.log('fino');
+          //Guardamos el token del usuario en el LocalStorage
+          return true;
+        }
+        return false;
+      }),
+      catchError(error => {
+        // Manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario.
+        console.error('Error en la solicitud de inicio de sesión:', error);
+        return of(false); // Devolver un valor observable con false
+      })
+    );
+
+
   }
 
 }
