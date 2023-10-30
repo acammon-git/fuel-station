@@ -4,4 +4,5 @@ export interface User {
     nombre:string;
     pais:string;
     telefono:string;
+    password:string
 }

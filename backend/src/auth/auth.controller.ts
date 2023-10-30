@@ -68,9 +68,20 @@ export class AuthController {
     return this.authService.findOne(+id);
   }
   
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+  @Put()
+  update(@Headers('x-token') token: string, @Body() updateAuthDto: UpdateAuthDto) {
+    if (!token) {
+      return { error: 'Token is missing' };
+    }
+  
+    const decode = jwt.decode(token) as JwtPayload;
+  
+    if (!decode || !decode.id) {
+      return { error: 'Invalid token or missing ID' };
+    }
+  
+    const { id } = decode;
+    return this.authService.update(id, updateAuthDto);
   }
 
   @Delete(':id')

@@ -1,40 +1,40 @@
 <form (ngSubmit)="submitForm()" #userForm="ngForm">
+  <div class="form-group">
+    <label for="name">Nombre</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="userData.nombre" >
+  </div>
+
+  <div class="form-group">
+    <label for="country">País</label>
+    <input type="text" class="form-control" id="pais" name="pais" [(ngModel)]="userData.pais" >
+  </div>
+
+  <div class="form-group">
+    <label for="photo">Foto</label>
+    <input type="file" class="form-control" id="foto" name="foto" [(ngModel)]="userData.foto" >
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="showAdditionalFields" name="showAdditionalFields" [(ngModel)]="showAdditionalFields">
+    <label class="form-check-label" for="showAdditionalFields">Quiero cambiar mi contraseña</label>
+  </div>
+
+  <div *ngIf="showAdditionalFields">
     <div class="form-group">
-      <label for="name">Nombre</label>
-      <input type="text" class="form-control" id="name" name="name" [(ngModel)]="userData.name" required>
-    </div>
-    
-    <div class="form-group">
-      <label for="country">País</label>
-      <input type="text" class="form-control" id="country" name="country" [(ngModel)]="userData.country" required>
+      <label for="actualPass">Contraseña actual</label>
+      <input type="password" class="form-control" id="actualPass" name="actualPass" [(ngModel)]="actualPass" >
     </div>
 
     <div class="form-group">
-        <label for="country">Foto</label>
-        <input type="file" class="form-control" id="country" name="country" [(ngModel)]="userData.photo" required>
-      </div>
-  
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="showAdditionalFields" name="showAdditionalFields" [(ngModel)]="showAdditionalFields">
-      <label class="form-check-label" for="showAdditionalFields">Quiero cambiar mi contraseña</label>
+      <label for="newPass1">Contraseña nueva</label>
+      <input type="password" class="form-control" id="newPass1" name="newPass1" [(ngModel)]="newPass1" >
     </div>
-  
-    <div *ngIf="showAdditionalFields">
-      <div class="form-group">
-        <label for="field1">Contraseña actual</label>
-        <input type="text" class="form-control" id="field1" name="field1" [(ngModel)]="userData.field1">
-      </div>
-      
-      <div class="form-group">
-        <label for="field2">Contraseña nueva</label>
-        <input type="text" class="form-control" id="field2" name="field2" [(ngModel)]="userData.field2">
-      </div>
-      
-      <div class="form-group">
-        <label for="field3">Repita la nueva contraseña</label>
-        <input type="text" class="form-control" id="field3" name="field3" [(ngModel)]="userData.field3">
-      </div>
+
+    <div class="form-group">
+      <label for="newPass2">Repita la nueva contraseña</label>
+      <input type="password" class="form-control" id="newPass2" name="newPass2" [(ngModel)]="newPass2" >
     </div>
-  
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-  </form>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>

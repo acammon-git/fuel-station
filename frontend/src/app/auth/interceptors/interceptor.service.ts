@@ -47,7 +47,7 @@ export class Interceptor implements HttpInterceptor {
         // control de errores en las peticiones
         catchError((error: HttpErrorResponse) => {
           if (error.status === 401) {
-            // Lógica para manejar el error 401 (No autorizado) si es necesario
+            console.error('Error en la solicitud HTTP', error);
           }
           return throwError(() => error);
         }),
