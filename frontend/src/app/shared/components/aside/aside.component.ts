@@ -15,9 +15,9 @@ export class AsideComponent implements OnInit { // Debes implementar OnInit para
   public nombre?:string;
   public foto?:string;
   public menuItems: MenuItem[] = [
-    { route: '/lineas/list', name: 'Líneas', icon: 'zmdi-reader' },
-    { route: '/fuentes/list', name: 'Fuentes', icon: 'zmdi-device-hub' },
-    { route: '/contactos/list', name: 'Contactos', icon: 'zmdi-accounts-alt' },
+    { route: '/lineas/', name: 'Líneas', icon: 'zmdi-reader' },
+    { route: '/fuentes/', name: 'Fuentes', icon: 'zmdi-device-hub' },
+    { route: '/contactos/', name: 'Contactos', icon: 'zmdi-accounts-alt' },
   ];
   public userData?: User;
 

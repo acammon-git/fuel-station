@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 
@@ -15,27 +15,33 @@ import { EmailValidator } from '../../../shared/validators/email-validator.servi
 export class EditPageComponent implements OnInit {
   private navbarService = inject(NavbarService);
   public formBuilder = inject(FormBuilder);
-  public profileForm: FormGroup = this.fb.group({
+  public profileForm: FormGroup = this.fb.group(
+    {
       foto: [''],
-      email: ['', [  Validators.pattern( this.validatorsService.emailPattern )], [this.emailValidator]],
-      nombre: ['', [ Validators.required, Validators.pattern( this.validatorsService.firstNameAndLastnamePattern)]],
+      email: ['', [Validators.pattern(this.validatorsService.emailPattern)], [this.emailValidator]],
+      nombre: ['', [Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)]],
       pais: [''],
-      password: ['', [ Validators.required, Validators.minLength(6) ]],
+      telefono: [''],
+      password: ['', [Validators.minLength(6)]],
       newPass1: [''],
       newPass2: [''],
-  }, {
-    validators: [
-      this.passwordsMatchValidator(
-        (profileForm) => {
-          const newPass1 = profileForm.get('newPass1')?.value;
-          const newPass2 = profileForm.get('newPass2')?.value;
-          return newPass1 !== '' && newPass1 === newPass2;
-        },
-        this.validatorsService.isFieldOneEqualFieldTwo('newPass1', 'newPass2')
-      ),
+  },
+    {
+      validators: (formGroup: FormGroup) => {
+        const newPass1 = formGroup.get('newPass1')?.value;
+        const newPass2 = formGroup.get('newPass2')?.value;
+
+        if (newPass1 !== '' && newPass1 !== newPass2) {
+          formGroup.get('newPass2')?.setErrors({ notEqual: true });
+          return { notEqual: true };
+        }
+
+        formGroup.get('newPass2')?.setErrors(null);
+        return null;
+      }
       // Agrega más validadores condicionales según tus necesidades
-    ],
-  });
+    }
+  );
 
   public showAdditionalFields = false;
   public actualPass = '';
@@ -70,8 +76,13 @@ export class EditPageComponent implements OnInit {
   toggleAdditionalFields() {
     this.showAdditionalFields = !this.showAdditionalFields;
   }
-
+  
   checkAndSubcheckAndSubmit() {
+    if (this.profileForm.valid) {
+      console.log('fino')
+    } else {
+      console.log('no fino')
+    }
     const formData = this.profileForm.getRawValue();
     
     const fieldsToCheck = ['foto', 'nombre', 'pais', 'password', 'newPass1', 'newPass2'];
@@ -99,10 +110,10 @@ export class EditPageComponent implements OnInit {
           next: (passwordMatch) => {
             if (passwordMatch || this.newPass1==this.newPass2) {
               // Contraseña actual coincide, puedes continuar con la actualización
-
+              console.log('fino')
               this.authService.updateUser(formData).subscribe({
                 next: (response) => {
-                  
+                  console.log('fino')
                   this.toastr.success('Campo actualizado correctamente', 'Éxito');
                 },
                 error: (updateError) => {
@@ -123,8 +134,10 @@ export class EditPageComponent implements OnInit {
         delete formData.password;
         delete formData.newPass1;
         delete formData.newPass2;
+        console.log('mal')
         this.authService.updateUser(formData).subscribe({
           next: (response) => {
+            console.log(response);
             // Si sale bien, metemos en localStorage el token
             this.toastr.success('Campo actualizado correctamente', 'Éxito');
           },
