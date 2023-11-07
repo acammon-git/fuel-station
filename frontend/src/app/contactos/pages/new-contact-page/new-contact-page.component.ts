@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 
 @Component({
-  templateUrl: './layout-page.component.html',
-  styleUrls: ['./layout-page.component.css']
+  templateUrl: './new-contact-page.component.html',
+  styleUrls: ['./new-contact-page.component.css']
 })
-export class LayoutPageComponent {
+export class NewContactPageComponent {
   private navbarService = inject(NavbarService);
   ngOnInit(): void {
-    this.navbarService.title.set("Fuentes"); // el título será "Líneas"
+    this.navbarService.title.set("Nuevo contacto"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
 }

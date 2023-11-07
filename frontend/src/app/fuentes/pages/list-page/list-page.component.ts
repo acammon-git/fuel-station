@@ -10,7 +10,7 @@ export class ListPageComponent implements OnInit{
   private navbarService = inject(NavbarService);
 
   ngOnInit(): void {
-    this.navbarService.title.set("Fuentes"); // el título será "Líneas"
+    this.navbarService.title.set("Todas las fuentes"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
 }

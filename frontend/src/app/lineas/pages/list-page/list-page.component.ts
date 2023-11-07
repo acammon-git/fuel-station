@@ -16,7 +16,7 @@ export class ListPageComponent implements OnInit{
   
 
   ngOnInit(): void {
-    this.navbarService.title.set("Líneas"); // el título será "Líneas"
+    this.navbarService.title.set("Ver todas las líneas"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
     
     this.dtOptions = {

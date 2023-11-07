@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListPageComponent } from './pages/list-page/list-page.component';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { NewContactPageComponent } from './pages/new-contact-page/new-contact-page.component';
+import { EditContactPageComponent } from './pages/edit-contact-page/edit-contact-page.component';
 
 
 // todas estas rutas se cargan por lazyload
@@ -9,13 +12,25 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
 const routes: Routes = [
   // listado de formaciones del usuario
   {
-    path: 'list',
-    component: ListPageComponent, 
+    path: '',
+    component: LayoutPageComponent, // Página principal
   },
-   // página que no existe, a la pagina principal
-   {
+  {
+    path: 'list',
+    component: ListPageComponent,
+  },
+  {
+    path: 'new',
+    component: NewContactPageComponent,
+  },
+  {
+    path: 'edit',
+    component: EditContactPageComponent,
+  },
+  // página que no existe, a la pagina principal
+  {
     path: '**',
-    redirectTo: 'list',
+    redirectTo: '',
     pathMatch: 'full'
   },
 ];

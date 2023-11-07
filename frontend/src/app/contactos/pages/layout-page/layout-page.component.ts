@@ -8,7 +8,7 @@ import { NavbarService } from 'src/app/shared/services/navbar.service';
 export class LayoutPageComponent {
   private navbarService = inject(NavbarService);
   ngOnInit(): void {
-    this.navbarService.title.set("Fuentes"); // el título será "Líneas"
+    this.navbarService.title.set("Contactos"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
 }
