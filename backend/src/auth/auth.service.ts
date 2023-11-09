@@ -96,7 +96,7 @@ async update(id:number, updateAuthDto: UpdateAuthDto): Promise<User | null> {
   if (!user) {
     throw new NotFoundException(`El usuario con ID ${id} no fue encontrado.`);
   }
-  console.log(updateAuthDto);
+  console.log('datos usu: ',updateAuthDto);
   // Actualiza los campos que desees del usuario basado en los datos proporcionados en updateAuthDto
   if (updateAuthDto.email) {
     user.email = updateAuthDto.email;

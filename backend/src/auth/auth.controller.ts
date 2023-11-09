@@ -70,9 +70,9 @@ export class AuthController {
     if (!token) {
       return { error: 'Token is missing' };
     }
-    console.log(token);
+    console.log('datosUsuario: ',updateAuthDto);
     const decode = jwt.decode(token) as JwtPayload;
-    console.log(decode);
+    
     if (!decode || !decode.id) {
       return { error: 'Invalid token or missing ID' };
     }

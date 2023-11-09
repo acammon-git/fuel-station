@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, computed, inject } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm , AbstractControl, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm , AbstractControl, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 
@@ -33,7 +33,8 @@ export class EditPageComponent implements OnInit {
         //foto:this.authService.user()?.foto,
         email:this.authService.user()?.email,
         pais:this.authService.user()?.pais,
-        telefono:this.authService.user()?.telefono
+        telefono:this.authService.user()?.telefono,
+        password:this.authService.user()?.password
       });
     }
     return this.authService.user();
@@ -46,8 +47,8 @@ export class EditPageComponent implements OnInit {
       email: [''],
       nombre: [''],
       pais: [''],
-      telefono: [''],
-      password: [''],
+      telefono: ['', [ Validators.required, Validators.maxLength(9) ]],
+      password: ['', [ Validators.required, Validators.minLength(6)]],
       newPass1: [''],
       newPass2: [''],
   }
@@ -105,6 +106,7 @@ export class EditPageComponent implements OnInit {
         delete formData.password;
         delete formData.newPass1;
         delete formData.newPass2;
+        console.log('Datos a cambiar:', this.profileForm);
         this.authService.updateUser(formData).subscribe({
           next: (response) => {
             console.log(response);
