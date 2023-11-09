@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, Signal, inject, signal } from '@angular/core';
+import { Injectable, Signal, computed, inject, signal } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment.development';
@@ -8,11 +8,18 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class AuthService {
+  // inyectamos las dependencias
+  private http = inject(HttpClient);
+
+  // declaración de variables privadas
   private readonly baseUrl: string = environment.baseUrl;
-  private token: string | null = null;
-  public user: any= null;
-  public idUsuario?:any;
-  constructor(private http: HttpClient) {}
+  private _user = signal<User | null>(null); // valor por defecto nulo
+
+  // declaración de variables publicas 
+  // ¡no hay manera de cambiar el estado de estas variables ni pasan por referencia ni nada!
+  public user = computed(() => this._user()); // devolvemos el valor de la señal de _currentUser
+  
+
   // Realiza la solicitud de inicio de sesión al backend
   login(email: string, password: string): Observable<boolean> {
     // Define los datos de inicio de sesión
@@ -21,8 +28,7 @@ export class AuthService {
     return this.http.post<{ token: string , user: any }>(`${this.baseUrl}/auth/login`, loginData).pipe(
       map(response => {
         if (response && response.token) {
-          this.token = response.token;
-          localStorage.setItem('token', this.token);//Guardamos el token y email del usuario en el LocalStorage
+          localStorage.setItem('token', response.token);//Guardamos el token y email del usuario en el LocalStorage
           localStorage.setItem('email', email);
           return true;
         }
@@ -35,10 +41,13 @@ export class AuthService {
       })
     );
   }
+
   getUserInfo(): Observable<User | null> {
     return this.http.get<User>(`${this.baseUrl}/auth`).pipe(
       map(response => {
         if (response) {
+          // si hemos obtenido respuesta
+          this._user.set(response);
           return response;
         }
         return null;
@@ -52,16 +61,17 @@ export class AuthService {
 
   // Devuelve el token de acceso actual
   getToken(): string | null {
-    return this.token;
+    return localStorage.getItem('token');
   }
 
   updateUser(formData:User): Observable<boolean> {
-    const token =localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
     return this.http.put<any>(`${this.baseUrl}/auth`, formData,{headers}).pipe(
       map(response => {
+        console.warn("respuesta del put", response);
         console.log(response)
         // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
         return true;

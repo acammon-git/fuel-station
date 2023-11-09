@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, ValidationErrors, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Component, OnInit, ViewChild, computed, inject } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators, ValidationErrors, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 
@@ -8,15 +8,38 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ValidatorsService } from '../../../shared/services/validators.service';
 import { EmailValidator } from '../../../shared/validators/email-validator.service';
+
+
 @Component({
   templateUrl: './edit-page.component.html',
   styleUrls: ['./edit-page.component.css']
 })
 export class EditPageComponent implements OnInit {
+  // inyección de servicios
   private navbarService = inject(NavbarService);
-  public formBuilder = inject(FormBuilder);
   public authService = inject(AuthService);
   public router = inject(Router);
+  public fb =  inject(FormBuilder);
+  public validatorsService =  inject(ValidatorsService);
+  public emailValidator =  inject(EmailValidator);
+  public toastr =  inject(ToastrService);
+
+  // buscamos el usuario actual
+  public user = computed(() => {
+    if(this.authService.user()) {
+      // asignamos los datos del usuario logueado al formulario
+      this.profileForm.patchValue({
+        nombre: this.authService.user()?.nombre,
+        //foto:this.authService.user()?.foto,
+        email:this.authService.user()?.email,
+        pais:this.authService.user()?.pais,
+        telefono:this.authService.user()?.telefono
+      });
+    }
+    return this.authService.user();
+  });
+
+  // controlador del formulario / formbuilder
   public profileForm: FormGroup = this.fb.group(
     {
       foto: [''],
@@ -29,20 +52,19 @@ export class EditPageComponent implements OnInit {
       newPass2: [''],
   }
   );
-  public showChangePassword = false;
-  
-  @ViewChild('userForm') userForm!: NgForm;
-  constructor(
-    private fb: FormBuilder,
-    private validatorsService: ValidatorsService,
-    private emailValidator: EmailValidator,
-    private toastr: ToastrService) {}
+  // configuraciones de la pagina
+  public showChangePassword = false; // checkbox para controlar el cambio de contraseña
   
   ngOnInit(): void {
+    // cambiamos el titulo del navbar
     this.navbarService.title.set("Editar mi cuenta");
     this.navbarService.backUrl.set("");
+    console.log("pagina de editar usuario",this.authService.user());
+    // ejecutamos la computada para forzar el cambio de los inputs
+    this.user();
   }
 
+  // comprueba si el campo es válido
   isValidField( field: string ) {
     return this.validatorsService.isValidField( this.profileForm, field );
   }
@@ -51,6 +73,7 @@ export class EditPageComponent implements OnInit {
     this.showChangePassword = !this.showChangePassword;
   }
 
+  // controlador al enviar el formulario
   submit(){
     const formData = this.profileForm.getRawValue();
     const fieldsToCheck = ['foto','email', 'nombre', 'pais','telefono','password', 'newPass1', 'newPass2'];
@@ -109,56 +132,6 @@ export class EditPageComponent implements OnInit {
           }
         });
       } 
-    }
-  }
-  checkAndSubcheckAndSubmit() {
-  
-    const formData = this.profileForm.getRawValue();
-    
-    const fieldsToCheck = ['foto', 'nombre', 'pais', 'password', 'newPass1', 'newPass2'];
-    
-    // Verifica si al menos un campo está completo
-    const hasEmptyField = fieldsToCheck.some(
-      (field) => formData[field] && formData[field].trim() !== ''
-    );
-  
-    if (!hasEmptyField) {
-      this.toastr.error('Debes completar al menos un campo', 'Error');
-      return;
-    }else if (this.showChangePassword) {
-      const passControl = this.profileForm.get('password')?.value;
-      const passFieldValue = passControl?.value;
-  
-      if (passFieldValue === '' || passFieldValue === null || passFieldValue === undefined) {
-        // No se ingresó una contraseña actual, por lo que no se realiza la comprobación
-        // y se continúa con la actualización de los campos.
-      } else {
-        this.profileForm.addControl('password', this.formBuilder.control('', Validators.required));
-        const formData = this.profileForm.getRawValue();
-        // Comprueba la contraseña actual y realiza la actualización si coincide
-        this.authService.checkActualPass().subscribe({
-          next: (passwordMatch) => {
-            if (passwordMatch || this==this) {
-              // Contraseña actual coincide, puedes continuar con la actualización
-            
-              this.authService.updateUser(formData).subscribe({
-                next: (response) => {
-                  
-                  this.toastr.success('Campo actualizado correctamente', 'Éxito');
-                },
-                error: (updateError) => {
-                  this.toastr.error('Error al actualizar la contraseña', 'Error');
-                }
-              });
-            } else {
-              this.toastr.error('La contraseña actual no coincide', 'Error');
-            }
-          },
-          error: (passwordError) => {
-            this.toastr.error('Error al comprobar la contraseña actual', 'Error');
-          }
-        });
-      }
     }
   }
 }

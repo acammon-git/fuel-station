@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
 import { MenuItem } from '../../interfaces/menu-item.interface';
 import { User } from '../../interfaces/user.interface';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -9,34 +9,24 @@ import { environment } from '../../../../environments/environment.development';
   templateUrl: './aside.component.html',
   styleUrls: ['./aside.component.css']
 })
-export class AsideComponent implements OnInit { // Debes implementar OnInit para utilizar ngOnInit
+export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
+  // inyección de servicios
+  public authService = inject(AuthService);
+  // datos de usuario autenticado
+  public nombre = computed(() => this.authService.user()?.nombre);
+  public foto = computed(() => {
+    const imageName = this.authService.user()?.foto;
+    return `${environment.baseUrl}/serve-images/${imageName}`;
+  });
   // Rutas de nuestro menú
-  isSettingsMenuOpen: boolean = false;
-  public nombre?:string;
-  public foto?:string;
   public menuItems: MenuItem[] = [
     { route: '/lineas/', name: 'Líneas', icon: 'zmdi-reader' },
     { route: '/fuentes/', name: 'Fuentes', icon: 'zmdi-device-hub' },
     { route: '/contactos/', name: 'Contactos', icon: 'zmdi-accounts-alt' },
   ];
-  public userData?: User;
+  // configuraciones/opciones del menu
+  public isSettingsMenuOpen: boolean = false;
 
-  constructor(private service: AuthService) {}
-  
-
-  ngOnInit(): void {  
-    
-    this.service.getUserInfo().subscribe((user: User | null) => {
-      if (user) {
-   this.nombre = user?.nombre;
-        const imageName = user.foto;
-        this.foto = `${environment.baseUrl}/serve-images/${imageName}`;
-      } else {
-        console.log('Los datos del usuario son nulos');
-      }
-    });
-
-  }
   toggleSettingsMenu() {
     this.isSettingsMenuOpen = !this.isSettingsMenuOpen;
   }

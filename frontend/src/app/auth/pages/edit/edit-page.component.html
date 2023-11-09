@@ -1,19 +1,20 @@
-<form  [formGroup]="profileForm" (ngSubmit)="submit()" #userForm="ngForm">
+<h3>Editando los datos de {{this.user()?.nombre}}</h3>
+<form [formGroup]="profileForm" (ngSubmit)="submit()" #userForm="ngForm">
   <div *ngIf="!showChangePassword">
     <div class="form-group">
       <label for="name">Nombre</label>
-      <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" >
-      <span *ngIf="isValidField('nombre')"  class="form-text text-danger">
+      <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre">
+      <span *ngIf="isValidField('nombre')" class="form-text text-danger">
         Debe de ser en formato de nombre y apellido
       </span>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" class="form-control" id="email" name="email" formControlName="email" >
+      <input type="text" class="form-control" id="email" name="email" formControlName="email">
     </div>
     <div class="form-group">
       <label for="country">País</label>
-      <input type="text" class="form-control" id="pais" name="pais" formControlName="pais" >
+      <input type="text" class="form-control" id="pais" name="pais" formControlName="pais">
     </div>
     <div class="form-group">
       <label for="telefono">Teléfono</label>
@@ -26,27 +27,28 @@
     </div>
 
     <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="showChangePassword" name="showChangePassword"(change)="toggleAdditionalFields()" >
+      <input class="form-check-input" type="checkbox" id="showChangePassword" name="showChangePassword"
+        (change)="toggleAdditionalFields()">
       <label class="form-check-label" for="showChangePassword">Quiero cambiar mi contraseña</label>
     </div>
-</div>
+  </div>
   <div *ngIf="showChangePassword">
     <div class="form-group">
       <label for="actualPass">Contraseña actual</label>
-      <input type="password" class="form-control" id="password" name="password" formControlName="password" >
+      <input type="password" class="form-control" id="password" name="password" formControlName="password">
     </div>
 
     <div class="form-group">
       <label for="newPass1">Contraseña nueva</label>
-      <input type="password" class="form-control" id="newPass1" name="newPass1" formControlName="newPass1" >
+      <input type="password" class="form-control" id="newPass1" name="newPass1" formControlName="newPass1">
     </div>
 
     <div class="form-group">
       <label for="newPass2">Repita la nueva contraseña</label>
-      <input type="password" class="form-control" id="newPass2" name="newPass2" formControlName="newPass2" >
+      <input type="password" class="form-control" id="newPass2" name="newPass2" formControlName="newPass2">
     </div>
     <button type="submit" class="btn btn-warning" (click)="toggleAdditionalFields()">Volver</button>
   </div>
   <br>
-  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  <button type="submit" (click)="submit()" class="btn btn-primary">Guardar Cambios</button>
 </form>
