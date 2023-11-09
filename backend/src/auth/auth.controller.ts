@@ -40,7 +40,6 @@ export class AuthController {
   @Get('check-token')
   @UseGuards(AuthGuard)
   checkToken( @Request() req): any {
-      
     try {
       const authorizationHeader = req.headers['authorization']; 
 
@@ -55,8 +54,6 @@ export class AuthController {
       } else {
         return 'No se encontró el encabezado de autorización';
       }
-  
-     
     } catch (error) {
       console.log(error);
     }
@@ -69,13 +66,13 @@ export class AuthController {
   }
   
   @Put()
-  update(@Headers('x-token') token: string, @Body() updateAuthDto: UpdateAuthDto) {
+  update(@Headers('Authorization') token: string, @Body() updateAuthDto: UpdateAuthDto) {
     if (!token) {
       return { error: 'Token is missing' };
     }
   
     const decode = jwt.decode(token) as JwtPayload;
-  
+    console.log(decode);
     if (!decode || !decode.id) {
       return { error: 'Invalid token or missing ID' };
     }

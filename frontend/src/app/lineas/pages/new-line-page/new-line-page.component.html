@@ -1,27 +1,28 @@
 
-    <form action="#" class="form-horizontal">
+    <form [formGroup]="formNewLine" (ngSubmit)="submit()"  #lineForm="ngForm" class="form-horizontal">
         <div class="form-group">
-            <label for="control-demo-1" class="col-sm-3">Nombre línea</label>
+            <label for="nombre" class="col-sm-3">Nombre línea</label>
             <div class="col-sm-9">
-                <input type="text" id="control-demo-1" class="form-control">
+                <input type="text" id="nombre" name="nombre" class="form-control" formControlName="nombre" required>
             </div>
         </div><!-- .form-group -->
         <div class="form-group">
-            <label for="control-demo-2" class="col-sm-3">URL</label>
+            <label for="url" class="col-sm-3">URL</label>
             <div class="col-sm-9">
-                <input type="email" id="control-demo-2" class="form-control">
+                <input type="text" id="url" class="form-control" name="url" formControlName="url" required>
             </div>
         </div><!-- .form-group -->
         <div class="form-group">
-            <label for="control-demo-3" class="col-sm-3">Imagen</label>
+            <label for="imagen" class="col-sm-3">Imagen</label>
             <div class="col-sm-9">
-                <input type="password" id="control-demo-3" class="form-control">
+                <input type="text" id="imagen" name="imagen" class="form-control" formControlName="imagen" required>
             </div>
         </div><!-- .form-group -->
         <div class="form-group">
-            <label for="control-demo-4" class="col-sm-3">Activo</label>
+            <label for="activo" class="col-sm-3">Activo</label>
             <div class="col-sm-9">
-                <input type="text" id="control-demo-4" class="form-control" placeholder="write something here">
+                <input type="checkbox" id="activo" name="activo" formControlName="activo"> Seleccione si activo
             </div>
         </div><!-- .form-group -->
+        <button type="submit" class="btn btn-primary">Guardar Línea</button>
     </form>

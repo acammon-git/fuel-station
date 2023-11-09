@@ -6,10 +6,8 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsString()
     nombre: string;
 
-    
     password: string;
-
-    @IsEmail()
+    
     email: string;
 
     @MaxLength(9)
@@ -17,7 +15,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
     @IsString()
     pais: string;
-
     
     last_login: Date;
 

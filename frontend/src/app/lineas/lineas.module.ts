@@ -6,7 +6,7 @@ import { ListPageComponent } from './pages/list-page/list-page.component';
 import { NewLinePageComponent } from './pages/new-line-page/new-line-page.component';
 import { EditLinePageComponent } from './pages/edit-line-page/edit-line-page.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -21,7 +21,9 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
   imports: [
     CommonModule,
     LineasRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    FormsModule, // Agrega el FormsModule si estás utilizando formularios de plantilla
+    ReactiveFormsModule,
   ]
 })
 export class LineasModule { }

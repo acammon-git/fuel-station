@@ -1,4 +1,4 @@
-import { IsString, IsEmail, MaxLength } from "class-validator";
+import { IsString, IsEmail, MaxLength, IsNumber } from "class-validator";
 
 export class CreateLineDto {
     @IsString()
@@ -10,6 +10,6 @@ export class CreateLineDto {
     @IsString()
     imagen: string;
 
-    @MaxLength(1)
+    @IsNumber()
     activo: number;
 }
