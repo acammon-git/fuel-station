@@ -1,4 +1,5 @@
 <h3>Editando los datos de {{this.user()?.nombre}}</h3>
+<br>
 <form [formGroup]="profileForm" (ngSubmit)="submit()" #userForm="ngForm">
   <div *ngIf="!showChangePassword">
     <div class="form-group">

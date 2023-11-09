@@ -11,7 +11,7 @@ export class CreateUserDto {
     
     email: string;
 
-    @MaxLength(9)
+    
     telefono:number;
 
     @IsString()

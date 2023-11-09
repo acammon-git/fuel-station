@@ -67,7 +67,7 @@ export class AuthService {
   updateUser(formData:User): Observable<boolean> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      'Authorization': `${token}`
     });
     return this.http.put<any>(`${this.baseUrl}/auth`, formData,{headers}).pipe(
       map(response => {

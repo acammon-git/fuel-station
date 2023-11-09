@@ -107,7 +107,8 @@ async update(id:number, updateAuthDto: UpdateAuthDto): Promise<User | null> {
   }
 
   if (updateAuthDto.password) {
-    user.password = bcryptjs.hashSync(updateAuthDto.password, 10);
+    const hash=bcryptjs.hashSync(updateAuthDto.password, 10)
+    user.password = hash;
   }
 
   if (updateAuthDto.pais) {

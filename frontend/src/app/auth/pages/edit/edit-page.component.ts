@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, computed, inject } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators, ValidationErrors, ValidatorFn, AbstractControl, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm , AbstractControl, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 
@@ -44,10 +44,10 @@ export class EditPageComponent implements OnInit {
     {
       foto: [''],
       email: [''],
-      nombre: ['', [Validators.pattern(this.validatorsService.firstNameAndLastnamePattern)]],
+      nombre: [''],
       pais: [''],
       telefono: [''],
-      password: ['', [Validators.minLength(6)]],
+      password: [''],
       newPass1: [''],
       newPass2: [''],
   }
@@ -76,25 +76,14 @@ export class EditPageComponent implements OnInit {
   // controlador al enviar el formulario
   submit(){
     const formData = this.profileForm.getRawValue();
-    const fieldsToCheck = ['foto','email', 'nombre', 'pais','telefono','password', 'newPass1', 'newPass2'];
-    const hasEmptyField = fieldsToCheck.some(
-      (field) => formData[field] && formData[field].trim() !== ''
-    );
-    if (!hasEmptyField) {
-      this.toastr.error('Debes completar al menos un campo', 'Error');
-      return;
-    }else if (this.showChangePassword) {
+    if (this.showChangePassword) {
       this.authService.checkActualPass().subscribe(
         (response) => {
           if(formData.newPass1 === formData.newPass2){
             formData.password=formData.newPass1;
             delete formData.newPass1;
             delete formData.newPass2;
-            delete formData.nombre;
-            delete formData.email;
-            delete formData.pais;
-            delete formData.telefono;
-            delete formData.foto;
+            
             this.authService.updateUser(formData).subscribe({
               next: (response) => {
                 console.log(response);
@@ -116,10 +105,6 @@ export class EditPageComponent implements OnInit {
         delete formData.password;
         delete formData.newPass1;
         delete formData.newPass2;
-        if(formData.email == ''){
-          delete formData.email;
-        }
-     
         this.authService.updateUser(formData).subscribe({
           next: (response) => {
             console.log(response);
