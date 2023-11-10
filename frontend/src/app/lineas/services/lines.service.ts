@@ -28,7 +28,6 @@ export class LinesService {
   viewLines(): Observable<any> { // Cambia el tipo de retorno a 'any' para los datos
     return this.http.get<any>(`${this.baseUrl}/lines/all`).pipe(
       map(response => {
-        console.log(response);
         // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
         return response; // Retorna el objeto completo
       }),

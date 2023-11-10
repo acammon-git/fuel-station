@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Request, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Request, Patch, Param, Delete, UseGuards, Put, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 
@@ -45,4 +46,10 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
+  @Post('file/:id')
+  @UseInterceptors(FileInterceptor('photo')) // 'photo' debe coincidir con el campo de formulario donde se envía la foto
+  async uploadPhoto(@Param('id') id: number, @UploadedFile() file) {
+    return this.usersService.file(id, file);
+  }
+  
 }

@@ -3,7 +3,22 @@
       <div class="media">
         <div class="media-left">
           <div class="avatar avatar-md avatar-circle">
-            <a href="#" routerLink="/auth/edit"><img class="img-responsive"  [src]="foto()" alt="avatar"/></a>
+            <a (click)="mostrarOpcionCambiarFoto()">
+              <img class="img-responsive" [src]="foto()" alt="avatar" />
+            </a>
+            <div *ngIf="mostrarOpcionFoto">
+              <ul class="app-menu">
+          
+                <li>
+                  <!-- zmdi-search -->
+                  <a>
+                    <i class="menu-icon zmdi bi bi-camera zmdi-hc-lg"></i>
+                    <span class="menu-text">Cambiar foto</span>
+                  </a>
+                </li>
+      
+              </ul>
+            </div>
           </div><!-- .avatar -->
         </div>
         <div class="media-body">

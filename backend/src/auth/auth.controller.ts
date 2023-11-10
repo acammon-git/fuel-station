@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Put, Headers } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, Put, Headers, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 import { CreateUserDto, LoginDto, RegisterUserDto, UpdateAuthDto } from './dto';
 import { AuthGuard } from './guards/auth.guard';
 import * as jwt from 'jsonwebtoken';
 import { JwtPayload } from './interfaces/jwt-payload';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 
@@ -32,7 +33,6 @@ export class AuthController {
   register( @Body() registerDto: RegisterUserDto  ) {
     return this.authService.register( registerDto );
   }
-  
   
 
   // LoginResponse

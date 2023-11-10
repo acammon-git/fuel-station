@@ -17,7 +17,8 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
   public foto = computed(() => {
     const imageName = this.authService.user()?.foto;
     return `${environment.baseUrl}/serve-images/${imageName}`;
-  });
+  }); 
+  
   // Rutas de nuestro menú
   public menuItems: MenuItem[] = [
     { route: '/lineas/list', name: 'Líneas', icon: 'zmdi-reader' },
@@ -26,7 +27,11 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
   ];
   // configuraciones/opciones del menu
   public isSettingsMenuOpen: boolean = false;
+  public mostrarOpcionFoto: boolean = false;
 
+  mostrarOpcionCambiarFoto() {
+    this.mostrarOpcionFoto = !this.mostrarOpcionFoto;
+  }
   toggleSettingsMenu() {
     this.isSettingsMenuOpen = !this.isSettingsMenuOpen;
   }

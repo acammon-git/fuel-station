@@ -170,4 +170,5 @@ async findOne(id: number): Promise<{ message: string }| any> {
   getJwtToken(payload: JwtPayload) {
     return this.jwtService.sign(payload);
   }
+  
 }

@@ -1,10 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarService } from '../../../shared/services/navbar.service';
-import { HttpClient } from '@angular/common/http';
 import { LinesService } from '../../services/lines.service';
 import { EditLineService } from 'src/app/shared/services/edit-line.service';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Lines } from 'src/app/shared/interfaces/lines.interface';
 @Component({
   templateUrl: './list-page.component.html',
   styleUrls: ['./list-page.component.css']
@@ -18,8 +17,7 @@ export class ListPageComponent implements OnInit{
   public data: any[] = [];
   public linesService=inject(LinesService);
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.navbarService.title.set("Ver todas las líneas"); // el título será "Líneas"
@@ -41,11 +39,11 @@ export class ListPageComponent implements OnInit{
       }
     );
   }
-  cargarDatosLineaSeleccionada(linea: any, id:number) {
+  cargarDatosLineaSeleccionada(linea: Lines) {
 
     this.editLineService.setCargarDatosLineaSeleccionada(linea);
-    this.router.navigate(['/lineas/edit', id], { state: { linea: linea } });
+    this.router.navigate(['/lineas/edit', linea.id_linea], { state: { linea: linea } });
     // Puedes hacer algo más aquí si es necesario
   }
-  }
+}
 

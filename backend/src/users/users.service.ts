@@ -3,11 +3,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import * as bcryptjs from 'bcryptjs';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './interfaces/jwt-payload';
-
+import * as fs from 'fs';
 
 
 @Injectable()
@@ -57,7 +57,31 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
   }
-
+  async file(id: number, file): Promise<any> {
+    try {
+      const uploadDir = './uploads';
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+      }
+  
+      const filePath = `${uploadDir}/${file.originalname}`;
+      fs.writeFileSync(filePath, file.buffer);
+  
+      const foto = `${process.env.URL}/uploads/${file.originalname}`;
+  
+      // Ajustar el objeto body para que se ajuste al tipo _QueryDeepPartialEntity<User>
+      const body = { foto } as { foto?: string }; 
+  
+      const user: UpdateResult = await this.userRepository.update(id, body);
+      if (user.affected === 0) {
+        throw new InternalServerErrorException('Something went wrong');
+      }
+  
+      return { message: foto };
+    } catch (error) {
+      return { message: 'Error al guardar la foto' };
+    }
+  }
   async findOne(id: number): Promise<{ message: string } | any> {
     const user = await this.userRepository.findOne({ where: { id_usuario: id } });
 
