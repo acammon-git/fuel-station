@@ -28,6 +28,22 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async updateLastLogin(userId:number): Promise<void> {
+    try {
+    const user = await this.userRepository.findOne({ where: { id_usuario: userId } });
+      if (user) {
+        user.last_login = new Date();
+        console.log('Fecha:', user.last_login)
+        await this.userRepository.save(user);
+      }else {
+        // Manejar el caso en el que el usuario no se encuentra
+        console.error(`No se encontró el usuario con ID ${userId}`);
+      }
+    } catch (error) {
+      // Manejar el error durante el guardado
+      console.error('Error al guardar el usuario:', error.message);
+    }
+  }
   async create(createUserDto: CreateUserDto): Promise<User> {
     try {
       const {email, password, ...userData } = createUserDto;
@@ -70,6 +86,8 @@ export class AuthService {
       throw new UnauthorizedException('Not valid credentials - password');
     }
     const { ...rest } = user;
+    console.log('Usuario: ',user)
+    this.updateLastLogin(user.id_usuario);
     return {
       user: rest,
       token: this.getJwtToken({ id: user.id_usuario}),

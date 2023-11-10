@@ -4,19 +4,15 @@ export class CreateUserDto {
 
     @IsString()
     nombre: string;
-
     
     password: string;
-
     
     email: string;
 
-    
     telefono:number;
 
     @IsString()
     pais: string;
-
     
     last_login: Date;
 
