@@ -1,28 +1,33 @@
+<div class="form-group">
+    <button type="submit" routerLink="/lineas/list" class="btn btn-success"><i class="bi bi-arrow-return-left"></i> Volver</button>
+</div>
 
-<form [formGroup]="formNewLine" (ngSubmit)="submit()"  #lineForm="ngForm" class="form-horizontal">
+<form  [formGroup]="formNewLine" (ngSubmit)="submit()"  #lineForm="ngForm" class="form-horizontal">
+    <h2>Editando la línea {{lineaSeleccionada?.nombre}}</h2>
+    <br>
     <div class="form-group">
         <label for="nombre" class="col-sm-3">Nuevo nombre</label>
         <div class="col-sm-9">
-            <input type="text" id="nombre" name="nombre" class="form-control" formControlName="nombre" required>
+            <input type="text" id="nombre" name="nombre" class="form-control" formControlName="nombre" [value]="lineaSeleccionada?.nombre" required>
         </div>
-    </div><!-- .form-group -->
+    </div>
     <div class="form-group">
         <label for="url" class="col-sm-3">URL</label>
         <div class="col-sm-9">
-            <input type="text" id="url" class="form-control" name="url" formControlName="url" required>
+            <input type="text" id="url" class="form-control" name="url" formControlName="url" [value]="lineaSeleccionada?.url" required>
         </div>
-    </div><!-- .form-group -->
+    </div>
     <div class="form-group">
         <label for="imagen" class="col-sm-3">Imagen</label>
         <div class="col-sm-9">
-            <input type="text" id="imagen" name="imagen" class="form-control" formControlName="imagen" required>
+            <input type="text" id="imagen" name="imagen" class="form-control" formControlName="imagen" [value]="lineaSeleccionada?.foto" required>
         </div>
-    </div><!-- .form-group -->
+    </div>
     <div class="form-group">
         <label for="activo" class="col-sm-3">Activo</label>
         <div class="col-sm-9">
             <input type="checkbox" id="activo" name="activo" formControlName="activo"> Seleccione si activo
         </div>
-    </div><!-- .form-group -->
+    </div>
     <button type="submit" class="btn btn-primary">Guardar Línea</button>
 </form>

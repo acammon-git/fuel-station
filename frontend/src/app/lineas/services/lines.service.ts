@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
+import { Lines } from 'src/app/shared/interfaces/lines.interface';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -33,6 +34,21 @@ export class LinesService {
       }),
       catchError(({ error }) => {
         console.log(error);
+        return of(false);
+      })
+    );
+  }
+
+  updateLine(formData:Lines,id:number): Observable<boolean> {
+    
+    return this.http.put<any>(`${this.baseUrl}/lines/${id}`, formData).pipe(
+      map(response => {
+        console.warn("respuesta del put", response);
+        console.log(response)
+        // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
+        return true;
+      }),
+      catchError(({ error }) => {
         return of(false);
       })
     );

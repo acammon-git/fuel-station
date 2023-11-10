@@ -23,7 +23,7 @@ const routes: Routes = [
     component: NewLinePageComponent,
   },
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: EditLinePageComponent,
   },
    // página que no existe, a la pagina principal

@@ -34,7 +34,6 @@ export class EditPageComponent implements OnInit {
         email:this.authService.user()?.email,
         pais:this.authService.user()?.pais,
         telefono:this.authService.user()?.telefono,
-        password:this.authService.user()?.password
       });
     }
     return this.authService.user();

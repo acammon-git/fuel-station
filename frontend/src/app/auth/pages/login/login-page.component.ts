@@ -31,7 +31,7 @@ export class LoginPage {
         // Redireccionar al componente deseado
         this.loged=true;
         setTimeout(() => {
-          this.router.navigate(['/lineas/fuentes']);
+          this.router.navigate(['/lineas/list']);
           this.toastr.success('Inicio de sesión exitoso', 'Éxito');
         }, 1500);
       } else {

@@ -20,9 +20,9 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
   });
   // Rutas de nuestro menú
   public menuItems: MenuItem[] = [
-    { route: '/lineas/', name: 'Líneas', icon: 'zmdi-reader' },
-    { route: '/fuentes/', name: 'Fuentes', icon: 'zmdi-device-hub' },
-    { route: '/contactos/', name: 'Contactos', icon: 'zmdi-accounts-alt' },
+    { route: '/lineas/list', name: 'Líneas', icon: 'zmdi-reader' },
+    { route: '/fuentes/list', name: 'Fuentes', icon: 'zmdi-device-hub' },
+    { route: '/contactos/list', name: 'Contactos', icon: 'zmdi-accounts-alt' },
   ];
   // configuraciones/opciones del menu
   public isSettingsMenuOpen: boolean = false;

@@ -15,6 +15,7 @@ export class NewLinePageComponent implements OnInit{
   private navbarService = inject(NavbarService);
   public formBuilder = inject(FormBuilder);
   public linesService = inject(LinesService);
+  public router = inject(Router);
   ngOnInit(): void {
     this.navbarService.title.set("Nueva línea"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
@@ -33,8 +34,8 @@ export class NewLinePageComponent implements OnInit{
       activo: [''],
   }
   );
-  public router = inject(Router);
-  @ViewChild('lineForm') lineForm!: NgForm;
+ 
+  
   //submit recoge los datos del fomulario y hace una peticion post para crear una nueva línea
   submit(){
     if (this.formNewLine.valid) {

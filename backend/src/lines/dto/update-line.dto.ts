@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateLineDto } from './create-line.dto';
-import { IsString, IsEmail, MaxLength } from 'class-validator';
+import { IsString, IsEmail, MaxLength, IsNumber } from 'class-validator';
 
 export class UpdateLineDto extends PartialType(CreateLineDto) {
     @IsString()
@@ -12,6 +12,6 @@ export class UpdateLineDto extends PartialType(CreateLineDto) {
     @IsString()
     imagen: string;
 
-    @MaxLength(1)
+    @IsNumber()
     activo: number;
 }

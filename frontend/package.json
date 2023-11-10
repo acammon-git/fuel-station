@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
     "angular-datatables": "^16.0.0",
+    "bootstrap-icons": "^1.11.1",
     "crypto-js": "^4.2.0",
     "datatables.net": "^1.13.6",
     "datatables.net-dt": "^1.13.6",
