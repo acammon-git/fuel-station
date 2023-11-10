@@ -8,7 +8,7 @@
       <span class="hamburger-box"><span class="hamburger-inner"></span></span>
     </button>
 
-    <a routerLink="/" class="navbar-brand" style="color: #188ae2;">
+    <a routerLink="/lineas" class="navbar-brand" style="color: #188ae2;">
       <span class="brand-icon"><i class="fa fa-gg"></i></span>
       <span class="brand-name">Mailer</span>
     </a>
@@ -25,6 +25,14 @@
         </li>
         <li><h5 class="page-title hidden-menubar-top hidden-float">{{title}}</h5></li>
       </ul>
+      <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
+        <li class="hidden-menubar-top hidden-float">
+          <a [routerLink]="'/'" role="button" id="menubar-fold-btn" class="hamburger hamburger--arrowalt is-active js-hamburger" style="cursor: pointer; background-color: red;">
+            <i class="fa fa-sign-out"></i> Cerrar Sesión
+          </a>
+        </li>
+      </ul>
     </div>
+    
   </div><!-- navbar-container -->
 </nav>

@@ -11,18 +11,20 @@ import { LinesService } from '../../services/lines.service';
   styleUrls: ['./edit-line-page.component.css']
 })
 export class EditLinePageComponent {
+  //inyección de servicios
   private navbarService = inject(NavbarService);
   public linesService = inject(LinesService);
+  public fb =  inject(FormBuilder);
+  public validatorsService =  inject(ValidatorsService);
+  public toastr =  inject(ToastrService);
   ngOnInit(): void {
     this.navbarService.title.set("Editar línea"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
     constructor(
-      private fb: FormBuilder,
-      private validatorsService: ValidatorsService,
-      private toastr: ToastrService) {}
+      ) {}
       //creamos los campos del formulario
-    public formNewLine: FormGroup = this.fb.group(
+      public formNewLine: FormGroup = this.fb.group(
       {
         
         nombre: [''],
