@@ -1,13 +1,13 @@
 import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Repository, Entity } from 'typeorm';
+import { Repository, Entity, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import * as bcryptjs from 'bcryptjs';
 import { RegisterUserDto, CreateUserDto, UpdateAuthDto, LoginDto } from './dto';
 import { JwtPayload } from './interfaces/jwt-payload';
 import { LoginResponse } from './interfaces/login-response';
-
+import * as fs from 'fs';
 @Injectable()
 export class AuthService {
   async getAllElements() {
@@ -143,6 +143,31 @@ async update(id:number, updateAuthDto: UpdateAuthDto): Promise<User | null> {
   await this.userRepository.save(user);
   // Devuelve el usuario actualizado
   return user;
+}
+async file(id: number, file): Promise<any> {
+  try {
+    const uploadDir = './uploads';
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const filePath = `${uploadDir}/${file.originalname}`;
+    fs.writeFileSync(filePath, file.buffer);
+
+    const foto = `${file.originalname}`;
+
+    // Ajustar el objeto body para que se ajuste al tipo _QueryDeepPartialEntity<User>
+    const body = { foto } as { foto?: string }; 
+
+    const user: UpdateResult = await this.userRepository.update(id, body);
+    if (user.affected === 0) {
+      throw new InternalServerErrorException('Something went wrong');
+    }
+
+    return { message: foto };
+  } catch (error) {
+    return { message: 'Error al guardar la foto' };
+  }
 }
 //  Encuentra registro por id
 async findOne(id: number): Promise<{ message: string }| any> {

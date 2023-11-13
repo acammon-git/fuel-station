@@ -13,17 +13,15 @@ import { ValidatorsService } from 'src/app/shared/services/validators.service';
 export class NewLinePageComponent implements OnInit{
   //inyeccion de servicios
   private navbarService = inject(NavbarService);
-  public formBuilder = inject(FormBuilder);
+  private fb = inject(FormBuilder);
   public linesService = inject(LinesService);
+  private toastr = inject(ToastrService);
   public router = inject(Router);
   ngOnInit(): void {
     this.navbarService.title.set("Nueva línea"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
   }
-  constructor(
-    private fb: FormBuilder,
-    private validatorsService: ValidatorsService,
-    private toastr: ToastrService) {}
+  constructor() {}
     //creamos los campos del formulario
   public formNewLine: FormGroup = this.fb.group(
     {

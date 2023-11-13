@@ -33,7 +33,11 @@ export class AuthController {
   register( @Body() registerDto: RegisterUserDto  ) {
     return this.authService.register( registerDto );
   }
-  
+  @Post('/file/:id')
+  @UseInterceptors(FileInterceptor('foto')) // 'foto' debe coincidir con el campo de formulario donde se envía la foto
+  async uploadPhoto(@Param('id') id: number, @UploadedFile() file) {
+    return this.authService.file(id, file);
+  }
 
   // LoginResponse
  

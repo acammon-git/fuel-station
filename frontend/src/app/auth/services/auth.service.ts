@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Signal, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment.development';
 
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment.development';
 export class AuthService {
   // inyectamos las dependencias
   private http = inject(HttpClient);
-
+  private toastr = inject(ToastrService);
   // declaración de variables privadas
   private readonly baseUrl: string = environment.baseUrl;
   private _user = signal<User | null>(null); // valor por defecto nulo
@@ -99,6 +100,20 @@ export class AuthService {
         // Manejar errores aquí, por ejemplo, mostrar un mensaje de error al usuario.
         console.error('Error al checkear la contraseña:', error);
         return of(false); // Devolver un valor observable con false
+      })
+    );
+  }
+  uploadPhoto(userId: string | undefined, formData: FormData): Observable<any> {
+    const url = `${environment.baseUrl}/auth/file/${userId}`;
+    return this.http.post(url, formData).pipe(
+      tap((data) => {
+        console.log('Foto cambiada correctamente:', data);
+        this.toastr.success('La foto se ha cambiado correctamente', 'Éxito');
+      }),
+      catchError(error => {
+        console.error('Error en la solicitud HTTP:', error);
+        this.toastr.error('No se ha podido cambiar la foto', 'Error');
+        throw error; // Re-lanza el error para que el componente también lo maneje
       })
     );
   }

@@ -46,10 +46,6 @@ export class UsersController {
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
-  @Post('file/:id')
-  @UseInterceptors(FileInterceptor('photo')) // 'photo' debe coincidir con el campo de formulario donde se envía la foto
-  async uploadPhoto(@Param('id') id: number, @UploadedFile() file) {
-    return this.usersService.file(id, file);
-  }
+  
   
 }
