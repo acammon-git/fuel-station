@@ -1,4 +1,4 @@
-import { IsString, MaxLength } from "class-validator";
+import { IsOptional, IsString, MaxLength } from "class-validator";
 
 export class CreateFontsLineDto {
     @MaxLength(4)
@@ -13,6 +13,6 @@ export class CreateFontsLineDto {
     @IsString()
     imagen: string;
 
-    @MaxLength(1)
+    @IsOptional()
     activo: number;
 }

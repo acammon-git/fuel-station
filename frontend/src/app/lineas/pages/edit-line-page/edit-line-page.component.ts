@@ -1,4 +1,4 @@
-import { EditLineService } from './../../../shared/services/edit-line.service';
+
 import { Component, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NavbarService } from 'src/app/shared/services/navbar.service';
 import { ValidatorsService } from 'src/app/shared/services/validators.service';
 import { LinesService } from '../../services/lines.service';
+import { Lines } from 'src/app/shared/interfaces/lines.interface';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class EditLinePageComponent {
   public router = inject(Router);
   public validatorsService =  inject(ValidatorsService);
   public toastr =  inject(ToastrService);
-  public editLineService= inject(EditLineService);
+
   //declaración de variables
   public data: any[] = [];
   public dtOptions:DataTables.Settings={};
@@ -28,7 +29,6 @@ export class EditLinePageComponent {
   //creamos los campos del formulario
   public formNewLine: FormGroup = this.fb.group(
     {
-      
       nombre: [''],
       url: [''],
       imagen: [''],
@@ -51,9 +51,9 @@ export class EditLinePageComponent {
     this.cargarDatosLineaSeleccionada( history.state.linea);
   }
     constructor() {}
-    cargarDatosLineaSeleccionada(linea: any) {
-      this.editLineService.setCargarDatosLineaSeleccionada(linea);
-      this.lineaSeleccionada = this.editLineService.getCargarDatosLineaSeleccionada();
+    cargarDatosLineaSeleccionada(linea: Lines) {
+      this.linesService.setCargarDatosLineaSeleccionada(linea);
+      this.lineaSeleccionada = this.linesService.getCargarDatosLineaSeleccionada();
       this.formNewLine.patchValue(this.lineaSeleccionada);
       
     }

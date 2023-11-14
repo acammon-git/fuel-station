@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavbarService } from '../../../shared/services/navbar.service';
 import { LinesService } from '../../services/lines.service';
-import { EditLineService } from 'src/app/shared/services/edit-line.service';
+
 import { Router } from '@angular/router';
 import { Lines } from 'src/app/shared/interfaces/lines.interface';
 @Component({
@@ -11,13 +11,14 @@ import { Lines } from 'src/app/shared/interfaces/lines.interface';
 export class ListPageComponent implements OnInit{
   // inyección de dependencias
   private navbarService = inject(NavbarService);
-  public editLineService= inject(EditLineService);
+  public linesService = inject(LinesService);
+  public router = inject(Router);
   // declaración de variables
   public dtOptions:DataTables.Settings={};
   public data: any[] = [];
-  public linesService=inject(LinesService);
+ 
   constructor(
-    private router: Router
+
   ) {}
   ngOnInit(): void {
     this.navbarService.title.set("Ver todas las líneas"); // el título será "Líneas"
@@ -41,7 +42,7 @@ export class ListPageComponent implements OnInit{
   }
   cargarDatosLineaSeleccionada(linea: Lines) {
 
-    this.editLineService.setCargarDatosLineaSeleccionada(linea);
+    this.linesService.setCargarDatosLineaSeleccionada(linea);
     this.router.navigate(['/lineas/edit', linea.id_linea], { state: { linea: linea } });
     // Puedes hacer algo más aquí si es necesario
   }

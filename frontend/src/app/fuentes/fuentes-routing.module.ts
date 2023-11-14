@@ -23,7 +23,7 @@ const routes: Routes = [
     component: NewFontPageComponent,
   },
   {
-    path: 'edit',
+    path: 'edit/:id',
     component: EditFontPageComponent,
   },
   // página que no existe, a la pagina principal

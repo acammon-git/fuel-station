@@ -12,6 +12,6 @@ export class UpdateFontsLineDto extends PartialType(CreateFontsLineDto) {
     @IsString()
     imagen: string;
 
-    @MaxLength(1)
+    
     activo: number;
 }

@@ -1,1 +1,37 @@
-<p>edit-font-page works!</p>
+<div class="form-group">
+    <button type="submit" routerLink="/fuentes/list" class="btn btn-success"><i class="bi bi-arrow-return-left"></i>
+        Volver</button>
+</div>
+
+<form [formGroup]="formNewFont" (ngSubmit)="submit()" #fontForm="ngForm" class="form-horizontal">
+    <h2>Editando la fuente {{fuenteSeleccionada?.nombre}}</h2>
+    <br>
+    <div class="form-group">
+        <label for="nombre" class="col-sm-3">Nuevo nombre</label>
+        <div class="col-sm-9">
+            <input type="text" id="nombre_linea" name="nombre_linea" class="form-control" formControlName="nombre_linea"
+                [value]="fuenteSeleccionada?.nombre_fuente" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parametros" class="col-sm-3">Parametros</label>
+        <div class="col-sm-9">
+            <input type="text" id="parametros" class="form-control" name="parametros" formControlName="parametros"
+                [value]="fuenteSeleccionada?.parametros" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="imagen" class="col-sm-3">Imagen</label>
+        <div class="col-sm-9">
+            <input type="text" id="imagen" name="imagen" class="form-control" formControlName="imagen"
+                [value]="fuenteSeleccionada?.foto" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="activo" class="col-sm-3">Activo</label>
+        <div class="col-sm-9">
+            <input type="checkbox" id="activo" name="activo" formControlName="activo"> Seleccione si activo
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Fuente</button>
+</form>

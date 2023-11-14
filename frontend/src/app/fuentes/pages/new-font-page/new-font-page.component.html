@@ -1,1 +1,41 @@
-<p>new-font-page works!</p>
+<form [formGroup]="formNewFont" (ngSubmit)="submit()"  class="form-horizontal">
+    <div class="form-group">
+        <button type="submit" routerLink="/fuentes/list" class="btn btn-success"><i class="bi bi-arrow-return-left"></i>
+            Volver</button>
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="nombre" class="col-sm-3">Id línea:</label>
+        <div class="col-sm-9">
+            <select id="id_linea" name="id_linea"  formControlName="id_linea">
+                <option *ngFor="let item of data" [value]="item.id_linea">{{ item.id_linea }}, {{ item.nombre_fuente }}</option>
+            </select>
+    
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="nombre" class="col-sm-3">Nombre Fuente</label>
+        <div class="col-sm-9">
+            <input type="text" id="nombre_fuente" name="nombre_fuente" class="form-control" formControlName="nombre_fuente" required>
+        </div>
+    </div><!-- .form-group -->
+    <div class="form-group">
+        <label for="url" class="col-sm-3">Parámetros</label>
+        <div class="col-sm-9">
+            <input type="text" id="parametros" class="form-control" name="parametros" formControlName="parametros" required>
+        </div>
+    </div><!-- .form-group -->
+    <div class="form-group">
+        <label for="imagen" class="col-sm-3">Imagen</label>
+        <div class="col-sm-9">
+            <input type="text" id="imagen" name="imagen" class="form-control" formControlName="imagen" required>
+        </div>
+    </div><!-- .form-group -->
+    <div class="form-group">
+        <label for="activo" class="col-sm-3">Activo</label>
+        <div class="col-sm-9">
+            <input type="checkbox" id="activo" name="activo" formControlName="activo"> Seleccione si activo
+        </div>
+    </div><!-- .form-group -->
+    <button type="submit" class="btn btn-primary">Guardar Línea</button>
+</form>

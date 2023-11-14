@@ -1,33 +1,35 @@
 <div class="form-group">
-    <button type="submit" routerLink="/lineas/new" class="btn btn-success"> Crear una nueva línea</button>
+    <button type="submit" routerLink="/fuentes/new" class="btn btn-success"> Crear una nueva fuente</button>
 </div>
 <div class="row">
     <!-- DOM dataTable -->
     <div class="col-md-12">
         <div class="widget">
             <header class="widget-header">
+                <h4 class="widget-title">Fuentes disponibles</h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
             <div class="widget-body">
                 <div class="table-responsive">
-                    <table datatable  id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+                    <table datatable [dtOptions]="dtOptions"  id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Nombre línea</th>
-                                <th>URL</th>
+                                <th>Ident. linea</th>
+                                <th>Nombre fuente</th>
+                                <th>Parametros</th>
                                 <th>Imagen</th>
                                 <th>Activo</th>
                                 <th>Acción</th>
                             </tr>
                         </thead>
-                        
                         <tbody>
                             <tr *ngFor="let item of data">
-                                <td>{{item.nombre}}</td>
-                                <td>{{item.url}}</td>
+                                <td>{{item.id_linea}}</td>
+                                <td>{{item.nombre_fuente}}</td>
+                                <td>{{item.parametros}}</td>
                                 <td>{{item.imagen}}</td>
                                 <td>{{item.activo}}</td>
-                                <td><button class="btn btn-danger">Editar</button></td>
+                                <td><button (click)="cargarDatoFuenteSeleccionada(item)" class="btn btn-danger">Editar</button></td>
                             </tr>
                         </tbody>
                     </table>

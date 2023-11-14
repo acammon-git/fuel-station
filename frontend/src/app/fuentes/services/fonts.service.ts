@@ -1,20 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
-import { Lines } from 'src/app/shared/interfaces/lines.interface';
+import { Observable, map, catchError, of } from 'rxjs';
+import { Fonts } from 'src/app/shared/interfaces/fonts.interface';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LinesService {
+export class FontsService {
+
   private readonly baseUrl: string = environment.baseUrl;
-  private lineaSeleccionada: any;
+  private fuenteSeleccionada: any;
   constructor(private http: HttpClient) {
-    
+
   }
-  createLine(formData:FormData): Observable<boolean> {
-    return this.http.post<any>(`${this.baseUrl}/lines`, formData).pipe(
+  createFont(formData: FormData): Observable<boolean> {
+    return this.http.post<any>(`${this.baseUrl}/fonts-lines`, formData).pipe(
       map(response => {
         console.log(response)
         // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
@@ -26,8 +27,8 @@ export class LinesService {
       })
     );
   }
-  viewLines(): Observable<any> { // Cambia el tipo de retorno a 'any' para los datos
-    return this.http.get<any>(`${this.baseUrl}/lines/all`).pipe(
+  viewFonts(): Observable<any> { // Cambia el tipo de retorno a 'any' para los datos
+    return this.http.get<any>(`${this.baseUrl}/fonts-lines/all`).pipe(
       map(response => {
         // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
         return response; // Retorna el objeto completo
@@ -39,9 +40,9 @@ export class LinesService {
     );
   }
 
-  updateLine(formData:Lines,id:number): Observable<boolean> {
-    
-    return this.http.put<any>(`${this.baseUrl}/lines/${id}`, formData).pipe(
+  updateFont(formData: Fonts, id: number): Observable<boolean> {
+
+    return this.http.put<any>(`${this.baseUrl}/fonts-lines/${id}`, formData).pipe(
       map(response => {
         console.warn("respuesta del put", response);
         console.log(response)
@@ -53,13 +54,11 @@ export class LinesService {
       })
     );
   }
-  
-
-  setCargarDatosLineaSeleccionada(linea: any): void {
-    this.lineaSeleccionada = { ...linea };
+  setCargarDatosFuenteSeleccionada(fuente: any): void {
+    this.fuenteSeleccionada = { ...fuente };
   }
 
-  getCargarDatosLineaSeleccionada(): any {
-    return this.lineaSeleccionada;
+  getCargarDatosFuenteSeleccionada(): any {
+    return this.fuenteSeleccionada;
   }
 }
