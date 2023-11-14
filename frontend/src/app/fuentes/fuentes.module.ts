@@ -4,18 +4,22 @@ import { CommonModule } from '@angular/common';
 import { FuentesRoutingModule } from './fuentes-routing.module';
 import { NewFontPageComponent } from './pages/new-font-page/new-font-page.component';
 import { EditFontPageComponent } from './pages/edit-font-page/edit-font-page.component';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
+
 
 
 @NgModule({
   declarations: [
     NewFontPageComponent,
     EditFontPageComponent,
-    LayoutPageComponent
   ],
   imports: [
     CommonModule,
-    FuentesRoutingModule
+    FuentesRoutingModule,
+    DataTablesModule,
+    FormsModule, // Agrega el FormsModule si estás utilizando formularios de plantilla
+    ReactiveFormsModule,
   ]
 })
 export class FuentesModule { }

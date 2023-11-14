@@ -8,9 +8,15 @@ import { NavbarService } from '../../../shared/services/navbar.service';
 export class ListPageComponent implements OnInit{
   // inyección de dependencias
   private navbarService = inject(NavbarService);
-
+  //declaración de variables
+  public dtOptions:DataTables.Settings={};
+  public data: any[] = [];
   ngOnInit(): void {
     this.navbarService.title.set("Todas las fuentes"); // el título será "Líneas"
     this.navbarService.backUrl.set(""); // no hay url para volver atrás
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10 
+    };
   }
 }

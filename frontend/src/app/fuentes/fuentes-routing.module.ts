@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListPageComponent } from './pages/list-page/list-page.component';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+
 import { NewFontPageComponent } from './pages/new-font-page/new-font-page.component';
 import { EditFontPageComponent } from './pages/edit-font-page/edit-font-page.component';
 
@@ -12,7 +12,7 @@ const routes: Routes = [
   // listado de formaciones del usuario
   {
     path: '',
-    component: LayoutPageComponent, // Página principal
+    component: ListPageComponent, // Página principal
   },
   {
     path: 'list',

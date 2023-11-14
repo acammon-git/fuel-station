@@ -108,6 +108,7 @@ export class AuthService {
     return this.http.post(url, formData).pipe(
       tap((data) => {
         console.log('Foto cambiada correctamente:', data);
+        
         this.toastr.success('La foto se ha cambiado correctamente', 'Éxito');
       }),
       catchError(error => {

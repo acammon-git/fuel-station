@@ -1,8 +1,8 @@
-import { Component, OnInit, computed, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, inject } from '@angular/core';
 import { MenuItem } from '../../interfaces/menu-item.interface';
-
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { environment } from '../../../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'shared-aside',
@@ -12,6 +12,7 @@ import { environment } from '../../../../environments/environment.development';
 export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
   // inyección de servicios
   public authService = inject(AuthService);
+  private cdr= inject(ChangeDetectorRef);
   // datos de usuario autenticado
   public nombre = computed(() => this.authService.user()?.nombre);
   public id = computed(() => this.authService.user()?.id_usuario);
@@ -21,6 +22,8 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
     return `${environment.baseUrl}/serve-images/${imageName}`;
   }); 
   
+  //constructor
+  constructor(){}
   // Rutas de nuestro menú
   public menuItems: MenuItem[] = [
     { route: '/lineas/list', name: 'Líneas', icon: 'zmdi-reader' },
@@ -36,6 +39,9 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
   }
   toggleSettingsMenu() {
     this.isSettingsMenuOpen = !this.isSettingsMenuOpen;
+  }
+  notificarCambio(): void {
+    this.cdr.detectChanges();
   }
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
@@ -53,5 +59,7 @@ export class AsideComponent { // Debes implementar OnInit para utilizar ngOnInit
         }
       );
     }
+    this.notificarCambio();
+    
   }
 }
