@@ -44,10 +44,11 @@ export class AuthService {
       console.error('Error al guardar el usuario:', error.message);
     }
   }
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(registerUserDto: RegisterUserDto): Promise<User> {
     try {
-      const {email, password, ...userData } = createUserDto;
+      const { email, password, ...userData } = registerUserDto;
       const existingUser = await this.userRepository.findOne({ where: { email } });
+      console.log(registerUserDto);
       if (existingUser) {
         throw new BadRequestException(`El email ${email} ya existe.`);
       }
@@ -60,9 +61,9 @@ export class AuthService {
       return user;
     } catch (error) {
       if (error.code === 11000) {
-        throw new ConflictException(`${createUserDto.email} already exists!`);
+        throw new ConflictException(`${registerUserDto.email} already exists!`);
       }
-      throw new InternalServerErrorException('Something went wrong');
+      throw new InternalServerErrorException('Something went wrong fooo');
     }
     
   }

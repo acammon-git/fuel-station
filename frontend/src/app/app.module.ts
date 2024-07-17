@@ -9,13 +9,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Asegúrate de importar BrowserAnimationsModule
 import { Interceptor } from './auth/interceptors/interceptor.service';
+import { MapsModule } from './maps/maps.module';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-    
   ],
   imports: [
     BrowserModule,
@@ -24,6 +24,7 @@ import { Interceptor } from './auth/interceptors/interceptor.service';
     RouterModule.forRoot([]),
     DataTablesModule,
     HttpClientModule,
+    MapsModule,
     ModalModule.forRoot(),// Configura ModalModule de ngx-bootstrap
     ToastrModule.forRoot({positionClass: 'toast-top-right',}) 
   ],

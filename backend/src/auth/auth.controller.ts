@@ -19,10 +19,7 @@ export class AuthController {
     const { id } = decode;
     return this.authService.findOne(id);
   }
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.authService.create(createUserDto);
-  }
+ 
 
   @Post('/login')
   login( @Body() loginDto: LoginDto  ) {

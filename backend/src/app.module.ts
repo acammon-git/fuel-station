@@ -2,23 +2,19 @@
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm'; // Cambio de Mongoose a TypeORM
-import { ConnectionOptions } from 'typeorm';
 
-import { Lineas } from './lines/entities/lineas.entity'; // Importa las entidades necesarias
 import { AuthModule } from './auth/auth.module';
-import { LineasFuentes } from './fonts-lines/entities/lineas_fuentes.entity';
-import { LineasFuentesContactos } from './contact-fonts-lines/entities/lineas_fuentes_contactos.entity';
-import { LineasFuentesContactosLog } from './log-contact-fonts-lines/entities/lineas_fuentes_contactos_log.entity';
+
 import { User } from './auth/entities/user.entity';
-import { Contact } from './contactos/entities/contact.entity';
-import { ContactModule } from './contactos/contact.module';
 import { UsersModule } from './users/users.module';
-import { LinesModule } from './lines/lines.module';
-import { FontsLinesModule } from './fonts-lines/fonts-lines.module';
-import { ContactFontsLinesModule } from './contact-fonts-lines/contact-fonts-lines.module';
-import { LogContactFontsLinesModule } from './log-contact-fonts-lines/log-contact-fonts-lines.module';
+
+
 import { NestFactory } from '@nestjs/core';
 import { ServeImagesModule } from './serve-images/serve-images.module';
+import { FuelStationModule } from './fuel-stations/fuel-station.module';
+import { FuelStation } from './fuel-stations/entities/fuel-stations.entity';
+import { FavoritesModule } from './favorites/favorites.module';
+import { Favorite } from './favorites/entities/favorite.entity';
 
 @Module({
   imports: [
@@ -32,7 +28,7 @@ import { ServeImagesModule } from './serve-images/serve-images.module';
         username: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD,
         database: process.env.MYSQL_DATABASE,
-        entities: [Lineas,LineasFuentes, LineasFuentesContactos, LineasFuentesContactosLog,User,Contact], // Agrega aquí todas las entidades que quieras utilizar
+        entities: [User,FuelStation,Favorite,], // Agrega aquí todas las entidades que quieras utilizar
         synchronize: false,
          // Cambia a false en producción
       }),
@@ -40,13 +36,10 @@ import { ServeImagesModule } from './serve-images/serve-images.module';
     
     // TODO: Habilitar los siguientes módulos
     AuthModule,
-    ContactModule,
     UsersModule,
-    LinesModule,
-    FontsLinesModule,
-    ContactFontsLinesModule,
-    LogContactFontsLinesModule,
     ServeImagesModule,
+    FuelStationModule,
+    FavoritesModule
   ],
   controllers: [],
   providers: [],

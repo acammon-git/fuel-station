@@ -4,47 +4,40 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { LayoutPage } from './shared/pages/layout/layout-page.component';
 
 
+
 const routes: Routes = [
-  // ruta de inicio
+  // Rutas de inicio
   {
-    path: '',
-    children: [
-      // rutas de la aplicación
-      {
-        path: 'auth',
-        loadChildren: () => import('./auth/auth.module').then( m => m.AuthModule),
-      },
-      {
-        path: 'lineas',
-        component: LayoutPage,
-        loadChildren: () => import('./lineas/lineas.module').then( m => m.LineasModule),
-        canActivate: [AuthGuard], // ! < es requerido estar autenticado
-      },
-      {
-        path: 'fuentes',
-        component: LayoutPage,
-        loadChildren: () => import('./fuentes/fuentes.module').then( m => m.FuentesModule),
-        canActivate: [AuthGuard], // ! < es requerido estar autenticado
-      },
-      {
-        path: 'contactos',
-        component: LayoutPage,
-        loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosModule),
-        canActivate: [AuthGuard], // ! < es requerido estar autenticado
-      },
-      
-      // página que no existe, a la pagina principal
-      {
-        path: '**',
-        redirectTo: 'auth',
-        pathMatch: 'full'
-      },
-    ]
-  }
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+  },
+  {
+    path: 'gasolineras',
+    component: LayoutPage,
+    loadChildren: () => import('./maps/maps.module').then(m => m.MapsModule),
+    canActivate: [AuthGuard], // Requerido estar autenticado
+  },
+  {
+    path: 'top',
+    component: LayoutPage,
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+  },
+  {
+    path: 'favorites',
+    component: LayoutPage,
+    loadChildren: () => import('./favorites/favorites.module').then(m => m.FavoritesModule),
+  },
+
+  // Página que no existe, redirigir a la página principal
+  {
+    path: '**',
+    redirectTo: 'auth',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

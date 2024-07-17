@@ -30,7 +30,7 @@ export class User {
     foto: string;
 
     @Column({default:true , nullable: true })
-    activo: boolean;
+    activo: number;
 }
 
 export const UserSchema= SchemaFactory.createForClass(User);

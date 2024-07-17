@@ -1,30 +1,33 @@
-import { IsBoolean, IsDate, IsEmail, IsNumber, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsBoolean, IsDate, IsEmail, IsEmpty, IsNumber, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 
 
 export class RegisterUserDto {
 
-    @IsString()
-    nombre: string;
-
-    
-    password: string;
-
     @IsEmail()
     email: string;
 
-    @MaxLength(9)
+    @IsString()
+    nombre: string;
+
+    @IsString()
+    password: string;
+
+    @IsOptional()
     telefono:number;
 
     @IsString()
     pais: string;
 
-    
-    last_login: Date;
-
     @IsString()
+    provincia: string;
+
+    @IsOptional()
     foto: string;
 
-    activo:boolean;
+    @IsOptional()
+    activo:number;
 
+    @IsOptional()
+    last_login: string;
 }

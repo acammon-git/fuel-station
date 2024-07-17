@@ -19,5 +19,5 @@ export class CreateUserDto {
     @IsString()
     foto: string;
 
-    activo:boolean;
+    activo:number;
 }

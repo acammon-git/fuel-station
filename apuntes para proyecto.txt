@@ -1,0 +1,33 @@
+reserva carga coche electrico 
+estadisticas subida/bajada precio
+implementar esto:
+Integrar Mapbox en Angular:
+Asegúrate de que ya hayas integrado Mapbox en tu aplicación de Angular. Puedes utilizar la biblioteca oficial de Mapbox GL JS para Angular o simplemente integrar Mapbox GL JS directamente en tu aplicación.
+
+bash
+Copy code
+ng add @asymmetrik/ngx-mapbox-gl
+Agregar la Capacidad de Visualización en 360 Grados:
+Para la visualización en 360 grados, necesitarás una biblioteca o un componente que admita este tipo de visualización. Puedes considerar usar bibliotecas como Three.js, A-Frame, o Pannellum, que son conocidas por su capacidad para mostrar contenido en 360 grados.
+
+Integrar la Biblioteca de Visualización en 360 Grados:
+Integra la biblioteca que elijas para la visualización en 360 grados en tu aplicación Angular. Asegúrate de que esta biblioteca pueda trabajar de manera efectiva con Mapbox.
+
+Sincronizar Mapbox y la Visualización en 360 Grados:
+Implementa la lógica necesaria para sincronizar la ubicación en el mapa de Mapbox con la visualización en 360 grados. Esto implica realizar un seguimiento de la posición y orientación en el mapa y luego reflejar esos cambios en tu visualización en 360 grados.
+
+Aquí tienes un ejemplo muy básico para ilustrar el concepto:
+
+typescript
+Copy code
+// Pseudo código para sincronizar Mapbox y visualización en 360 grados
+mapbox.on('move', () => {
+  const center = mapbox.getCenter();
+  const bearing = mapbox.getBearing();
+
+  // Actualizar la visualización en 360 grados con la nueva ubicación y orientación
+  panoramaViewer.updatePosition(center, bearing);
+});
+Recuerda que la implementación real puede ser más compleja dependiendo de las características específicas que desees y las bibliotecas que elijas.
+
+Ten en cuenta que la disponibilidad de nuevas funciones y bibliotecas puede haber cambiado después de mi última actualización en enero de 2022. Te recomendaría verificar la documentación más reciente de Mapbox y las bibliotecas de visualización en 360 grados para obtener información actualizada sobre las capacidades y la integración.

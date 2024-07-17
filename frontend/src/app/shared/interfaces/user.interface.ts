@@ -4,6 +4,7 @@ export interface User {
     foto:string;
     nombre:string;
     pais:string;
+    provincia: string;
     telefono:string;
     password:string;
 }

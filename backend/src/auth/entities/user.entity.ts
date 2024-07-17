@@ -14,7 +14,7 @@ export class User {
     @Column()
     password: string;
 
-    @Column({ unique:true })
+    @Column()
     email: string;
 
     @Column()
@@ -23,14 +23,17 @@ export class User {
     @Column()
     pais: string;
 
-    @Column({ type: 'timestamp', default: null, nullable: true })
-    last_login: Date;
-  
+    @Column()
+    provincia: string;
+
     @Column()
     foto: string;
 
-    @Column({default:true , nullable: true })
-    activo: boolean;
+    @Column()
+    activo: number;
+    
+    @Column()
+    last_login: Date;
 }
 
 export const UserSchema= SchemaFactory.createForClass(User);

@@ -65,6 +65,20 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  createUser(formData: User): Observable<boolean> {
+    
+    return this.http.post<any>(`${this.baseUrl}/auth/register`, formData).pipe(
+      map(response => {
+        console.warn("respuesta del post", response);
+        console.log(response)
+        // this.serviceToast.showToast('bg-green-600', 'Éxito', response.message);
+        return true;
+      }),
+      catchError(({ error }) => {
+        return of(false);
+      })
+    );
+  }
   updateUser(formData:User): Observable<boolean> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
