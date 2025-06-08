@@ -32,5 +32,3 @@ export class User {
     @Column({default:true , nullable: true })
     activo: number;
 }
-
-export const UserSchema= SchemaFactory.createForClass(User);
